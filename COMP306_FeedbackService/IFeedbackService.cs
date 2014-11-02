@@ -12,34 +12,24 @@ namespace COMP306_FeedbackService
     public interface IFeedbackService
     {
         [OperationContract]
-        string GetData(int value);
+        [FaultContract(typeof(FaultFeedbackInfo))]
+        List<CourseObject> GetAllCourse();
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [FaultContract(typeof(FaultFeedbackInfo))]
+        List<CourseObject> GetCourseByCodeOrTitle(string codeOrTitle);
 
-        // TODO: Add your service operations here
-    }
+        [OperationContract]
+        [FaultContract(typeof(FaultFeedbackInfo))]
+        List<FeedbackObject> GetFeedbackByCourseID(int courseID);
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    // You can add XSD files into the project. After building the project, you can directly use the data types defined there, with the namespace "COMP306_FeedbackService.ContractType".
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [OperationContract]
+        [FaultContract(typeof(FaultFeedbackInfo))]
+        int PostFeedbackByCourseID(FeedbackObject feedback);
 
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        [OperationContract]
+        [FaultContract(typeof(FaultFeedbackInfo))]
+        int UpdateByFeedBackID(int id, string content);
 
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 }

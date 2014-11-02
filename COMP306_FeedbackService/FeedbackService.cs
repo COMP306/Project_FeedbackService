@@ -10,22 +10,30 @@ namespace COMP306_FeedbackService
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class FeedbackService : IFeedbackService
     {
-        public string GetData(int value)
+
+        public List<CourseObject> GetAllCourse()
         {
-            return string.Format("You entered: {0}", value);
+            throw new NotImplementedException();
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public List<CourseObject> GetCourseByCodeOrTitle(string codeOrTitle)
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            throw new NotImplementedException();
+        }
+
+        public List<FeedbackObject> GetFeedbackByCourseID(int courseID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int PostFeedbackByCourseID(FeedbackObject feedback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateByFeedBackID(int id, string content)
+        {
+            throw new NotImplementedException();
         }
     }
 }
