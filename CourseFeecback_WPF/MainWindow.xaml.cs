@@ -22,7 +22,7 @@ namespace CourseFeecback_WPF
     {
         public MainWindow()
         {
-            InitializeComponent();
+           InitializeComponent();
         }
     }
 }
