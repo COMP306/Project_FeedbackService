@@ -14,8 +14,17 @@ namespace FeedbackEF
     
     public partial class TCourse
     {
+        public TCourse()
+        {
+            this.TFeedbacks = new HashSet<TFeedback>();
+            this.TStudentCourses = new HashSet<TStudentCourse>();
+        }
+    
         public int ID { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
+    
+        public virtual ICollection<TFeedback> TFeedbacks { get; set; }
+        public virtual ICollection<TStudentCourse> TStudentCourses { get; set; }
     }
 }

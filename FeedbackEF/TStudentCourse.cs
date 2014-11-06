@@ -18,5 +18,8 @@ namespace FeedbackEF
         public int StudentID { get; set; }
         public int CourseID { get; set; }
         public System.DateTime EndDate { get; set; }
+    
+        public virtual TCourse TCourse { get; set; }
+        public virtual TStudent TStudent { get; set; }
     }
 }

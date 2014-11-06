@@ -21,9 +21,6 @@ CREATE TABLE [dbo].[TCourse](
 GO
 
 
-USE [COMP306_Feedback]
-GO
-
 /****** Object:  Table [dbo].[TFeedback]    Script Date: 2014-11-02 11:39:05 ******/
 SET ANSI_NULLS ON
 GO
@@ -67,9 +64,6 @@ CREATE TABLE [dbo].[TStudent](
 GO
 
 
-USE [COMP306_Feedback]
-GO
-
 /****** Object:  Table [dbo].[TStudentCourse]    Script Date: 2014-11-02 11:41:54 ******/
 SET ANSI_NULLS ON
 GO
@@ -91,9 +85,21 @@ CREATE TABLE [dbo].[TStudentCourse](
 GO
 
 
-
-USE [COMP306_Feedback]
+ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TCourse] FOREIGN KEY([CourseID])
+REFERENCES [dbo].[TCourse] ([ID])
 GO
+ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TStudent] FOREIGN KEY([StudentID])
+REFERENCES [dbo].[TStudent] ([ID])
+GO
+ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TCourse] FOREIGN KEY([CourseID])
+REFERENCES [dbo].[TCourse] ([ID])
+GO
+ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TStudent] FOREIGN KEY([StudentID])
+REFERENCES [dbo].[TStudent] ([ID])
+GO
+
+
+
 
 /****** Object:  View [dbo].[vwCourse]    Script Date: 2014-11-02 12:00:05 ******/
 SET ANSI_NULLS ON

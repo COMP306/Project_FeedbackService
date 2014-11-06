@@ -54,6 +54,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SQLSampleData.txt" />
     <Content Include="SQLScripts.txt" />
   </ItemGroup>
   <ItemGroup>
