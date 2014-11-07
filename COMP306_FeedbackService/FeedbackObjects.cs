@@ -93,7 +93,7 @@ namespace COMP306_FeedbackService
         public int CourseID
         {
             get { return _course_id; }
-            set { _student_id = value; }
+            set { _course_id = value; }
         }
         [DataMember]
         public DateTime PostDate

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="COMP306_FeedbackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="COMP306_FeedbackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="COMP306_FeedbackModelStoreContainer">
           <EntitySet Name="TCourse" EntityType="COMP306_FeedbackModel.Store.TCourse" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TFeedback" EntityType="COMP306_FeedbackModel.Store.TFeedback" store:Type="Tables" Schema="dbo" />
@@ -161,7 +161,8 @@
           <Parameter Name="p03_StudentID" Type="int" Mode="In" />
           <Parameter Name="p04_PostDate" Type="date" Mode="In" />
         </Function>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="COMP306_FeedbackModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -172,12 +173,6 @@
           <EntitySet Name="TStudentCourses" EntityType="COMP306_FeedbackModel.TStudentCourse" />
           <EntitySet Name="vwCourses" EntityType="COMP306_FeedbackModel.vwCourse" />
           <EntitySet Name="vwFeedbacks" EntityType="COMP306_FeedbackModel.vwFeedback" />
-          <FunctionImport Name="spInsertFeedback" ReturnType="Collection(Decimal)">
-            <Parameter Name="p01_Content" Mode="In" Type="String" />
-            <Parameter Name="p02_CourseID" Mode="In" Type="Int32" />
-            <Parameter Name="p03_StudentID" Mode="In" Type="Int32" />
-            <Parameter Name="p04_PostDate" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <AssociationSet Name="FK_TFeedback_TCourse" Association="COMP306_FeedbackModel.FK_TFeedback_TCourse">
             <End Role="TCourse" EntitySet="TCourses" />
             <End Role="TFeedback" EntitySet="TFeedbacks" />
@@ -194,6 +189,12 @@
             <End Role="TStudent" EntitySet="TStudents" />
             <End Role="TStudentCourse" EntitySet="TStudentCourses" />
           </AssociationSet>
+          <FunctionImport Name="spInsertFeedback" ReturnType="Collection(Decimal)">
+            <Parameter Name="p01_Content" Mode="In" Type="String" />
+            <Parameter Name="p02_CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="p03_StudentID" Mode="In" Type="Int32" />
+            <Parameter Name="p04_PostDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="TCourse">
           <Key>
@@ -262,8 +263,8 @@
           <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK_TFeedback_TCourse">
-          <End Type="COMP306_FeedbackModel.TCourse" Role="TCourse" Multiplicity="1" />
-          <End Type="COMP306_FeedbackModel.TFeedback" Role="TFeedback" Multiplicity="*" />
+          <End Role="TCourse" Type="COMP306_FeedbackModel.TCourse" Multiplicity="1" />
+          <End Role="TFeedback" Type="COMP306_FeedbackModel.TFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TCourse">
               <PropertyRef Name="ID" />
@@ -274,8 +275,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TStudentCourse_TCourse">
-          <End Type="COMP306_FeedbackModel.TCourse" Role="TCourse" Multiplicity="1" />
-          <End Type="COMP306_FeedbackModel.TStudentCourse" Role="TStudentCourse" Multiplicity="*" />
+          <End Role="TCourse" Type="COMP306_FeedbackModel.TCourse" Multiplicity="1" />
+          <End Role="TStudentCourse" Type="COMP306_FeedbackModel.TStudentCourse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TCourse">
               <PropertyRef Name="ID" />
@@ -286,8 +287,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TFeedback_TStudent">
-          <End Type="COMP306_FeedbackModel.TStudent" Role="TStudent" Multiplicity="1" />
-          <End Type="COMP306_FeedbackModel.TFeedback" Role="TFeedback" Multiplicity="*" />
+          <End Role="TStudent" Type="COMP306_FeedbackModel.TStudent" Multiplicity="1" />
+          <End Role="TFeedback" Type="COMP306_FeedbackModel.TFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TStudent">
               <PropertyRef Name="ID" />
@@ -298,8 +299,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TStudentCourse_TStudent">
-          <End Type="COMP306_FeedbackModel.TStudent" Role="TStudent" Multiplicity="1" />
-          <End Type="COMP306_FeedbackModel.TStudentCourse" Role="TStudentCourse" Multiplicity="*" />
+          <End Role="TStudent" Type="COMP306_FeedbackModel.TStudent" Multiplicity="1" />
+          <End Role="TStudentCourse" Type="COMP306_FeedbackModel.TStudentCourse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TStudent">
               <PropertyRef Name="ID" />

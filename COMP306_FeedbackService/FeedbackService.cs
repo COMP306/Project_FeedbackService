@@ -10,30 +10,118 @@ namespace COMP306_FeedbackService
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class FeedbackService : IFeedbackService
     {
-
+        #region "GetAllCourse"
+        /// <summary>
+        /// query all available courses
+        /// </summary>
+        /// <returns>a list of CourseObject object</returns>
         public List<CourseObject> GetAllCourse()
         {
-            throw new NotImplementedException();
+            List<CourseObject> coList = new List<CourseObject>();
+            using (FeedbackEF.COMP306_FeedbackEntities fbEF = new FeedbackEF.COMP306_FeedbackEntities())
+            {
+                var courses = (from c in fbEF.vwCourses
+                               select c).ToList();
+                foreach (FeedbackEF.vwCourse courseEntity in courses)
+                {
+                    coList.Add(new CourseObject(courseEntity.ID, courseEntity.Code, courseEntity.Title));
+                }
+            }
+            return coList;
         }
+        #endregion
 
+        #region "GetCourseByCodeOrTitle"
+        /// <summary>
+        /// query courses with certain code or title
+        /// </summary>
+        /// <param name="codeOrTitle">course code or course title</param>
+        /// <returns>a list of CourseObject object</returns>
         public List<CourseObject> GetCourseByCodeOrTitle(string codeOrTitle)
         {
-            throw new NotImplementedException();
+            List<CourseObject> coList = new List<CourseObject>();
+            using (FeedbackEF.COMP306_FeedbackEntities fbEF = new FeedbackEF.COMP306_FeedbackEntities())
+            {
+                var courses = (from c in fbEF.vwCourses
+                               where (c.Title.IndexOf(codeOrTitle)>-1 || c.Code.IndexOf(codeOrTitle)>-1)
+                               select c).ToList();
+                foreach (FeedbackEF.vwCourse courseEntity in courses)
+                {
+                    coList.Add(new CourseObject(courseEntity.ID, courseEntity.Code, courseEntity.Title));
+                }
+            }
+            return coList;
         }
+        #endregion
 
+        #region "GetFeedbackByCourseID"
+        /// <summary>
+        /// query all feedback with certain course ID
+        /// </summary>
+        /// <param name="courseID">Course ID</param>
+        /// <returns>a list of FeecbackObject object</returns>
         public List<FeedbackObject> GetFeedbackByCourseID(int courseID)
         {
-            throw new NotImplementedException();
+            List<FeedbackObject> fbList = new List<FeedbackObject>();
+            using (FeedbackEF.COMP306_FeedbackEntities fbEF = new FeedbackEF.COMP306_FeedbackEntities())
+            {
+                var feedbacks = (from f in fbEF.vwFeedbacks
+                               where (f.CourseID == courseID)
+                               select f).ToList();
+                foreach (FeedbackEF.vwFeedback feedbackEntity in feedbacks)
+                {
+                    fbList.Add(new FeedbackObject(feedbackEntity.ID, feedbackEntity.FeedbackContent, feedbackEntity.StudentID, feedbackEntity.CourseID, feedbackEntity.PostDate));
+                }
+            }
+            return fbList;
         }
+        #endregion
 
+        #region "PostFeedbackByCourseID"
+        /// <summary>
+        /// add feedback to a course
+        /// </summary>
+        /// <param name="feedback"></param>
+        /// <returns>returns: 0 sucess; -1 fail</returns>
         public int PostFeedbackByCourseID(FeedbackObject feedback)
         {
-            throw new NotImplementedException();
-        }
+            int result = -1;
+            using (FeedbackEF.COMP306_FeedbackEntities fbEF = new FeedbackEF.COMP306_FeedbackEntities())
+            {
+                //fbEF.spInsertFeedback(feedback.Content, feedback.CourseID, feedback.StudentID, feedback.PostDate);
+                FeedbackEF.vwFeedback fb = new FeedbackEF.vwFeedback();
+                fb.FeedbackContent = feedback.Content;
+                fb.CourseID = feedback.CourseID;
+                fb.PostDate = feedback.PostDate;
+                fb.StudentID = feedback.StudentID;
 
+                fbEF.vwFeedbacks.Add(fb);
+                result = fbEF.SaveChanges();
+            }
+            return result;
+        }
+        #endregion
+
+        #region "UpdateByFeedBackID"
+        /// <summary>
+        /// update feedback content with a certain ID
+        /// </summary>
+        /// <param name="id">feedback id</param>
+        /// <param name="content">updated content</param>
+        /// <returns>returns: 0 success; -1 fail</returns>
         public int UpdateByFeedBackID(int id, string content)
         {
-            throw new NotImplementedException();
+            int result = -1;
+            //FeedbackEF.vwFeedback fb;
+            using (FeedbackEF.COMP306_FeedbackEntities fbEF = new FeedbackEF.COMP306_FeedbackEntities())
+            {
+                //var fb = fbEF.vwFeedbacks.Where(f => f.ID == id).FirstOrDefault();
+                var fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id);
+                fb.FeedbackContent = content;               
+                result = fbEF.SaveChanges();
+            }
+            return result;
         }
+        #endregion
     }
 }

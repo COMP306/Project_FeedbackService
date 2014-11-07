@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea6bde99293d4a368e9a2ce819cbeca6" Name="Diagram1">
-        <EntityTypeShape EntityType="COMP306_FeedbackModel.TCourse" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="COMP306_FeedbackModel.TFeedback" Width="1.5" PointX="3.875" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="COMP306_FeedbackModel.TStudent" Width="1.5" PointX="3.625" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="COMP306_FeedbackModel.TStudentCourse" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="COMP306_FeedbackModel.vwCourse" Width="1.5" PointX="6.25" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="COMP306_FeedbackModel.vwFeedback" Width="1.5" PointX="6.375" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="COMP306_FeedbackModel.FK_TFeedback_TCourse" />
-        <AssociationConnector Association="COMP306_FeedbackModel.FK_TStudentCourse_TCourse" />
-        <AssociationConnector Association="COMP306_FeedbackModel.FK_TFeedback_TStudent" />
-        <AssociationConnector Association="COMP306_FeedbackModel.FK_TStudentCourse_TStudent" />
+      <Diagram DiagramId="eea69f4597d64a05ac9d1f0795cb5a16" Name="Diagram1">
+        <EntityTypeShape EntityType="COMP306_FeedbackModel.TCourse" Width="1.5" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMP306_FeedbackModel.TFeedback" Width="1.5" PointX="1" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMP306_FeedbackModel.TStudent" Width="1.5" PointX="4.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMP306_FeedbackModel.TStudentCourse" Width="1.5" PointX="4.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMP306_FeedbackModel.vwCourse" Width="1.5" PointX="6.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="COMP306_FeedbackModel.vwFeedback" Width="1.5" PointX="7" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="COMP306_FeedbackModel.FK_TFeedback_TCourse" ManuallyRouted="false" />
+        <AssociationConnector Association="COMP306_FeedbackModel.FK_TStudentCourse_TCourse" ManuallyRouted="false" />
+        <AssociationConnector Association="COMP306_FeedbackModel.FK_TFeedback_TStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="COMP306_FeedbackModel.FK_TStudentCourse_TStudent" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -25,7 +25,7 @@ namespace FeedbackEF
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //throw new UnintentionalCodeFirstException();
         }
     
         public DbSet<TCourse> TCourses { get; set; }

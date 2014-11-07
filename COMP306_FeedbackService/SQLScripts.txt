@@ -149,7 +149,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	Insert Into TFeedback values (@01_Content, @02_CourseID, @03_StudentID, @04_PostDate)
+	Insert Into TFeedback values (@01_Content, @02_CourseID, @03_StudentID, getdate())
 	select SCOPE_IDENTITY()
 END
 

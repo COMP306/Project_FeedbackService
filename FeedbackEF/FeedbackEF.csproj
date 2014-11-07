@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Feedback.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,13 +82,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Feedback.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Feedback.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Feedback.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Feedback.edmx</DependentUpon>
