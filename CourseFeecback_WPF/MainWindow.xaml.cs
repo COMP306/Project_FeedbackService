@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CourseFeecback_WPF.FeedbackService;
 
 namespace CourseFeecback_WPF
 {
@@ -24,5 +25,13 @@ namespace CourseFeecback_WPF
         {
            InitializeComponent();
         }
+
+        private CourseObject[] getAllCourseList()
+        {
+            FeedbackServiceClient aClient = new FeedbackServiceClient();
+            return aClient.GetAllCourse();
+        }
     }
+
+    
 }
