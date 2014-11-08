@@ -34,15 +34,15 @@
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
 
-                <StackPanel x:Name="ButtonGrid" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10.2,0" Width="209">
-                    <TextBlock Text="course name:" Margin="0,0,70.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678"  />
-                    <TextBox Width="150" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="0,0,0,0" />
-                    <Button Content="Search" Width="100" Height="30" Margin="0,0,0,0" />
+                <StackPanel x:Name="ButtonGrid" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,23.8,0.4" Width="295">
+                    <TextBlock Text="Course name:" Margin="0,20,160.2,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678" Width="135"  />
+                    <TextBox AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,98.2,-30" />
+                    <Button Content="Search" Height="30" Margin="206,0,10.2,0" RenderTransformOrigin="0.812,0.593" />
                 </StackPanel>
 
                 <StackPanel x:Name="ListBoxGrid_Scroll" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0.2,0" Width="329">
-                    <TextBlock Text="Course list" Margin="0 0 0 20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}"  />
-                    <ListBox Height="578" Margin="10,0,9.8,0">
+                    <TextBlock Text="Course list :" Margin="10,10,203.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="115"  />
+                    <ListBox Height="629" Margin="10,0,9.8,0">
                         <ListBoxItem Content="Course1" />
                         <ListBoxItem Content="Course2" />
                         <ListBoxItem Content="Course3" />
@@ -54,10 +54,10 @@
                 </StackPanel>
 
                 <StackPanel x:Name="Section2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="Section2:" Margin="0,0,70.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678"  />
+                    <TextBlock Text="Feedback List:" Margin="0,0,70.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678"  />
                 </StackPanel>
                 <StackPanel x:Name="Section3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="Section3:" Margin="0,0,70.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678"  />
+                    <TextBlock Text="Comment:" Margin="0,0,70.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678"  />
                 </StackPanel>
             </Grid>
         </ScrollViewer>
