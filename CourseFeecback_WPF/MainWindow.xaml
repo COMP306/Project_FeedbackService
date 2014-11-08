@@ -74,6 +74,9 @@
                     <Button Content="Save" Height="30" Margin="10,50,262.8,20" RenderTransformOrigin="0.812,0.593" />
 
                 </StackPanel>
+                <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="335,0,0,0" VerticalAlignment="Top" Width="1"/>
+                <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="655,0,0,0" VerticalAlignment="Top" Width="1"/>
+
             </Grid>
         </ScrollViewer>
     </Grid>
