@@ -24,6 +24,7 @@ namespace CourseFeecback_WPF
         public MainWindow()
         {
            InitializeComponent();
+             CourseObject[]  test = getAllCourseList();
         }
 
         private CourseObject[] getAllCourseList()

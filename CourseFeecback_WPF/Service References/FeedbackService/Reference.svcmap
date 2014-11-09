@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="843ca065-9fab-4c41-b3fa-0cb890c9de56" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bc685edc-fb35-46ee-a7db-761a6174d863" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost/IISFeedbackService/Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="755eec38-1707-446a-bb15-708717f10dca" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?disco" />
-    <MetadataFile FileName="FeedbackService.wsdl" MetadataType="Wsdl" ID="3843ef90-3098-4c0e-9034-3a4873b157ab" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?wsdl" />
-    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="ef7c3489-d2e6-4591-881b-a564cd7b7c57" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="b52f0ca2-17c4-41cc-949a-d1aa5dc432f9" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="b9d15ce2-4198-4588-b66a-59c622767367" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="a6e8f0ac-52fd-49e4-bc11-a10874d84a24" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?disco" />
+    <MetadataFile FileName="FeedbackService.wsdl" MetadataType="Wsdl" ID="46e5fb7b-537a-482a-a152-a6c135d38cf7" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?wsdl" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="12668f4e-5966-4968-9911-fd4bd9dd016a" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="68c4bf92-2ccd-454a-b561-e8064f6e9f49" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="3ef798e2-b3ba-4495-895a-8488e7ed5f76" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

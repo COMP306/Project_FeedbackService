@@ -79,7 +79,7 @@
       <wsdl:fault wsaw:Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDFaultFeedbackInfoFault" name="FaultFeedbackInfoFault" message="tns:IFeedbackService_UpdateByFeedBackID_FaultFeedbackInfoFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="BasicHttpBinding_IFeedbackService" type="tns:IFeedbackService">
+  <wsdl:binding name="BasicHTTP" type="tns:IFeedbackService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAllCourse">
       <soap:operation soapAction="http://tempuri.org/IFeedbackService/GetAllCourse" style="document" />
@@ -143,7 +143,7 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="FeedbackService">
-    <wsdl:port name="BasicHttpBinding_IFeedbackService" binding="tns:BasicHttpBinding_IFeedbackService">
+    <wsdl:port name="BasicHTTP" binding="tns:BasicHTTP">
       <soap:address location="http://localhost/IISFeedbackService/Service.svc" />
     </wsdl:port>
   </wsdl:service>
