@@ -19,8 +19,9 @@ namespace FeedbackEF
     public partial class COMP306_FeedbackEntities : DbContext
     {
         public COMP306_FeedbackEntities()
-            : base("name=COMP306_FeedbackEntities")
+            //: base("name=COMP306_FeedbackEntities")
         {
+            this.Database.Connection.ConnectionString = "Data Source=localhost; Initial Catalog=COMP306_Feedback; Integrated Security=True;";
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

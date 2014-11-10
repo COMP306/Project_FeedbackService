@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="53d20566-258a-4227-8cd9-fa2778237222" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/FeedbackService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FeedbackService.xsd" MetadataType="Schema" ID="7893e495-8a81-457d-bb7d-a20755642930" SourceId="1" SourceUrl="http://localhost:8080/FeedbackService?xsd=xsd2" />
+    <MetadataFile FileName="FeedbackService.disco" MetadataType="Disco" ID="9c8631dc-f205-4403-ab54-d62cb16880d1" SourceId="1" SourceUrl="http://localhost:8080/FeedbackService?disco" />
+    <MetadataFile FileName="FeedbackService.wsdl" MetadataType="Wsdl" ID="97bb50ea-41c0-44e6-b608-d64cdd98e87c" SourceId="1" SourceUrl="http://localhost:8080/FeedbackService?wsdl" />
+    <MetadataFile FileName="FeedbackService1.xsd" MetadataType="Schema" ID="45dcd872-8f8a-418c-842d-6573d8f993a8" SourceId="1" SourceUrl="http://localhost:8080/FeedbackService?xsd=xsd0" />
+    <MetadataFile FileName="FeedbackService2.xsd" MetadataType="Schema" ID="be7c0e04-0754-4fb6-8db1-dc5a473a10ee" SourceId="1" SourceUrl="http://localhost:8080/FeedbackService?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

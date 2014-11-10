@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
+using System.Windows;
+
 
 namespace COMP306_FeedbackService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class FeedbackService : IFeedbackService
     {
         #region "GetAllCourse"
@@ -15,13 +22,14 @@ namespace COMP306_FeedbackService
         /// query all available courses
         /// </summary>
         /// <returns>a list of CourseObject object</returns>
+        //[PrincipalPermission(SecurityAction.Demand, Role="Feedbackusers")]
         public List<CourseObject> GetAllCourse()
         {
             List<CourseObject> coList = new List<CourseObject>();
             using (FeedbackEF.COMP306_FeedbackEntities fbEF = new FeedbackEF.COMP306_FeedbackEntities())
             {
                 var courses = (from c in fbEF.vwCourses
-                               select c).ToList();
+                               select c).ToList();  // TO-DO:add critiera with CurrentPrincipal.Identity
                 foreach (FeedbackEF.vwCourse courseEntity in courses)
                 {
                     coList.Add(new CourseObject(courseEntity.ID, courseEntity.Code, courseEntity.Title));
@@ -37,6 +45,7 @@ namespace COMP306_FeedbackService
         /// </summary>
         /// <param name="codeOrTitle">course code or course title</param>
         /// <returns>a list of CourseObject object</returns>
+        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public List<CourseObject> GetCourseByCodeOrTitle(string codeOrTitle)
         {
             List<CourseObject> coList = new List<CourseObject>();
@@ -60,6 +69,7 @@ namespace COMP306_FeedbackService
         /// </summary>
         /// <param name="courseID">Course ID</param>
         /// <returns>a list of FeecbackObject object</returns>
+        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public List<FeedbackObject> GetFeedbackByCourseID(int courseID)
         {
             List<FeedbackObject> fbList = new List<FeedbackObject>();
@@ -83,6 +93,7 @@ namespace COMP306_FeedbackService
         /// </summary>
         /// <param name="feedback"></param>
         /// <returns>returns: 0 sucess; -1 fail</returns>
+        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public int PostFeedbackByCourseID(FeedbackObject feedback)
         {
             int result = -1;
@@ -109,6 +120,7 @@ namespace COMP306_FeedbackService
         /// <param name="id">feedback id</param>
         /// <param name="content">updated content</param>
         /// <returns>returns: 0 success; -1 fail</returns>
+        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public int UpdateByFeedBackID(int id, string content)
         {
             int result = -1;
@@ -121,6 +133,27 @@ namespace COMP306_FeedbackService
                 result = fbEF.SaveChanges();
             }
             return result;
+        }
+        #endregion
+
+        #region "GetCurrentUser()"
+        /// <summary>
+        /// test current user
+        /// </summary>
+        /// <returns>user name</returns>
+        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
+        public string GetCurrentUser()
+        {
+            WindowsPrincipal user = new WindowsPrincipal((WindowsIdentity)Thread.CurrentPrincipal.Identity);
+            if (!(user.IsInRole("Feedbackusers")))
+            { Console.WriteLine("Access denied"); }
+            else
+            { Console.WriteLine("Access grant to Feedbackusers"); }
+
+            string userName = Thread.CurrentPrincipal.Identity.Name;
+            Console.WriteLine("Username is : {0}", userName);
+
+            return userName;
         }
         #endregion
     }

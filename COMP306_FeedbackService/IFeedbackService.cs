@@ -31,5 +31,8 @@ namespace COMP306_FeedbackService
         [FaultContract(typeof(FaultFeedbackInfo))]
         int UpdateByFeedBackID(int id, string content);
 
+        [OperationContract]
+        string GetCurrentUser();
+
     }
 }
