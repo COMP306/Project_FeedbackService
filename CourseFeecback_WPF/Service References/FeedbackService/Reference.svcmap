@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/IISFeedbackService/Service.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://localhost/WCFFeedbackService/FeedbackService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="a6e8f0ac-52fd-49e4-bc11-a10874d84a24" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?disco" />
-    <MetadataFile FileName="FeedbackService.wsdl" MetadataType="Wsdl" ID="46e5fb7b-537a-482a-a152-a6c135d38cf7" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?wsdl" />
-    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="12668f4e-5966-4968-9911-fd4bd9dd016a" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="68c4bf92-2ccd-454a-b561-e8064f6e9f49" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="3ef798e2-b3ba-4495-895a-8488e7ed5f76" SourceId="1" SourceUrl="http://localhost/IISFeedbackService/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="FeedbackService1.wsdl" MetadataType="Wsdl" ID="548432eb-5a70-40eb-8ae3-13f7d28ad34b" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?wsdl" />
+    <MetadataFile FileName="FeedbackService.xsd" MetadataType="Schema" ID="c5154e78-b8c6-46c5-97e7-d6ba51515b07" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?xsd=xsd1" />
+    <MetadataFile FileName="FeedbackService1.xsd" MetadataType="Schema" ID="d3e3bd99-3a0b-435d-b722-067dd6310744" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?xsd=xsd2" />
+    <MetadataFile FileName="FeedbackService2.xsd" MetadataType="Schema" ID="6a9dad73-189c-4292-b49b-b722ac796a12" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?xsd=xsd0" />
+    <MetadataFile FileName="FeedbackService.disco" MetadataType="Disco" ID="cf10fc2c-4f1a-4091-8e09-c28abcac4421" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

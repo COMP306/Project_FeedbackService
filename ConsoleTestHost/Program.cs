@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using COMP306_FeedbackService;
+using WCFFeedbackService;
 using System.ServiceModel;
 
 namespace ConsoleTestHost

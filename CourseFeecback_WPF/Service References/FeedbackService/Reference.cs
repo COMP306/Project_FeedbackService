@@ -15,7 +15,7 @@ namespace CourseFeecback_WPF.FeedbackService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CourseObject", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CourseObject", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
     [System.SerializableAttribute()]
     public partial class CourseObject : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -92,7 +92,7 @@ namespace CourseFeecback_WPF.FeedbackService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
     [System.SerializableAttribute()]
     public partial class FaultFeedbackInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -153,7 +153,7 @@ namespace CourseFeecback_WPF.FeedbackService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FeedbackObject", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FeedbackObject", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
     [System.SerializableAttribute()]
     public partial class FeedbackObject : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -265,39 +265,45 @@ namespace CourseFeecback_WPF.FeedbackService {
     public interface IFeedbackService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetAllCourse", ReplyAction="http://tempuri.org/IFeedbackService/GetAllCourseResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetAllCourseFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetAllCourseFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
         CourseFeecback_WPF.FeedbackService.CourseObject[] GetAllCourse();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetAllCourse", ReplyAction="http://tempuri.org/IFeedbackService/GetAllCourseResponse")]
         System.Threading.Tasks.Task<CourseFeecback_WPF.FeedbackService.CourseObject[]> GetAllCourseAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitle", ReplyAction="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
         CourseFeecback_WPF.FeedbackService.CourseObject[] GetCourseByCodeOrTitle(string codeOrTitle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitle", ReplyAction="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleResponse")]
         System.Threading.Tasks.Task<CourseFeecback_WPF.FeedbackService.CourseObject[]> GetCourseByCodeOrTitleAsync(string codeOrTitle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
         CourseFeecback_WPF.FeedbackService.FeedbackObject[] GetFeedbackByCourseID(int courseID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDResponse")]
         System.Threading.Tasks.Task<CourseFeecback_WPF.FeedbackService.FeedbackObject[]> GetFeedbackByCourseIDAsync(int courseID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
         int PostFeedbackByCourseID(CourseFeecback_WPF.FeedbackService.FeedbackObject feedback);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDResponse")]
         System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(CourseFeecback_WPF.FeedbackService.FeedbackObject feedback);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackID", ReplyAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(CourseFeecback_WPF.FeedbackService.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
         int UpdateByFeedBackID(int id, string content);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackID", ReplyAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDResponse")]
         System.Threading.Tasks.Task<int> UpdateByFeedBackIDAsync(int id, string content);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetCurrentUser", ReplyAction="http://tempuri.org/IFeedbackService/GetCurrentUserResponse")]
+        string GetCurrentUser();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetCurrentUser", ReplyAction="http://tempuri.org/IFeedbackService/GetCurrentUserResponse")]
+        System.Threading.Tasks.Task<string> GetCurrentUserAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -365,6 +371,14 @@ namespace CourseFeecback_WPF.FeedbackService {
         
         public System.Threading.Tasks.Task<int> UpdateByFeedBackIDAsync(int id, string content) {
             return base.Channel.UpdateByFeedBackIDAsync(id, content);
+        }
+        
+        public string GetCurrentUser() {
+            return base.Channel.GetCurrentUser();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetCurrentUserAsync() {
+            return base.Channel.GetCurrentUserAsync();
         }
     }
 }

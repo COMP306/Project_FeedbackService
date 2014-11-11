@@ -139,16 +139,6 @@
     <None Include="Service References\FeedbackService\CourseFeecback_WPF.FeedbackService.FeedbackObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\FeedbackService\FeedbackService.wsdl" />
-    <None Include="Service References\FeedbackService\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FeedbackService\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FeedbackService\Service2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -160,19 +150,29 @@
     <WCFMetadataStorage Include="Service References\FeedbackService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\FeedbackService\Service.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\FeedbackService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\FeedbackService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\FeedbackService\FeedbackService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedbackService\FeedbackService1.wsdl" />
+    <None Include="Service References\FeedbackService\FeedbackService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedbackService\FeedbackService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\FeedbackService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FeedbackService\FeedbackService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
