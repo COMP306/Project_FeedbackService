@@ -18,10 +18,10 @@ namespace ConsoleTestClient
                     new ConsoleFeedbackServiceReference.FeedbackServiceClient("BasicHttpBinding_IFeedbackService");
 
                 client.ClientCredentials.Windows.ClientCredential.Domain = "JohnnyWalker";
-                //client.ClientCredentials.Windows.ClientCredential.UserName = "student";
-                //client.ClientCredentials.Windows.ClientCredential.Password = "password";
-                client.ClientCredentials.Windows.ClientCredential.UserName = "visitor";
-                client.ClientCredentials.Windows.ClientCredential.Password = "visitor";
+                client.ClientCredentials.Windows.ClientCredential.UserName = "student";
+                client.ClientCredentials.Windows.ClientCredential.Password = "password";
+                //client.ClientCredentials.Windows.ClientCredential.UserName = "visitor";
+                //client.ClientCredentials.Windows.ClientCredential.Password = "visitor";
 
                 string user = client.GetCurrentUser();
                 Console.WriteLine("You are : {0}", user);

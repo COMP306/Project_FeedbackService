@@ -14,7 +14,7 @@ namespace IISTestClient
 
             try
             {
-                IISFeedbackServiceReference.FeedbackServiceClient client = new IISFeedbackServiceReference.FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
+                WCFServiceReference.FeedbackServiceClient client = new WCFServiceReference.FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
 
                 client.ClientCredentials.Windows.ClientCredential.Domain = "JohnnyWalker";
                 client.ClientCredentials.Windows.ClientCredential.UserName = "student";

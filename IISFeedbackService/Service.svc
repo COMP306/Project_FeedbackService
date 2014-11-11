@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="COMP306_FeedbackService.FeedbackService" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="FeedbackService.FeedbackService" %>

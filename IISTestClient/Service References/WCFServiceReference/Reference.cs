@@ -8,14 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IISTestClient.IISFeedbackServiceReference {
+namespace IISTestClient.WCFServiceReference {
     using System.Runtime.Serialization;
     using System;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CourseObject", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CourseObject", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
     [System.SerializableAttribute()]
     public partial class CourseObject : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -92,7 +92,7 @@ namespace IISTestClient.IISFeedbackServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
     [System.SerializableAttribute()]
     public partial class FaultFeedbackInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -153,7 +153,7 @@ namespace IISTestClient.IISFeedbackServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FeedbackObject", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FeedbackObject", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
     [System.SerializableAttribute()]
     public partial class FeedbackObject : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -261,39 +261,39 @@ namespace IISTestClient.IISFeedbackServiceReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="IISFeedbackServiceReference.IFeedbackService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WCFServiceReference.IFeedbackService")]
     public interface IFeedbackService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetAllCourse", ReplyAction="http://tempuri.org/IFeedbackService/GetAllCourseResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.IISFeedbackServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetAllCourseFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
-        IISTestClient.IISFeedbackServiceReference.CourseObject[] GetAllCourse();
+        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetAllCourseFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
+        IISTestClient.WCFServiceReference.CourseObject[] GetAllCourse();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetAllCourse", ReplyAction="http://tempuri.org/IFeedbackService/GetAllCourseResponse")]
-        System.Threading.Tasks.Task<IISTestClient.IISFeedbackServiceReference.CourseObject[]> GetAllCourseAsync();
+        System.Threading.Tasks.Task<IISTestClient.WCFServiceReference.CourseObject[]> GetAllCourseAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitle", ReplyAction="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.IISFeedbackServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
-        IISTestClient.IISFeedbackServiceReference.CourseObject[] GetCourseByCodeOrTitle(string codeOrTitle);
+        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
+        IISTestClient.WCFServiceReference.CourseObject[] GetCourseByCodeOrTitle(string codeOrTitle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitle", ReplyAction="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitleResponse")]
-        System.Threading.Tasks.Task<IISTestClient.IISFeedbackServiceReference.CourseObject[]> GetCourseByCodeOrTitleAsync(string codeOrTitle);
+        System.Threading.Tasks.Task<IISTestClient.WCFServiceReference.CourseObject[]> GetCourseByCodeOrTitleAsync(string codeOrTitle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.IISFeedbackServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
-        IISTestClient.IISFeedbackServiceReference.FeedbackObject[] GetFeedbackByCourseID(int courseID);
+        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
+        IISTestClient.WCFServiceReference.FeedbackObject[] GetFeedbackByCourseID(int courseID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/GetFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/GetFeedbackByCourseIDResponse")]
-        System.Threading.Tasks.Task<IISTestClient.IISFeedbackServiceReference.FeedbackObject[]> GetFeedbackByCourseIDAsync(int courseID);
+        System.Threading.Tasks.Task<IISTestClient.WCFServiceReference.FeedbackObject[]> GetFeedbackByCourseIDAsync(int courseID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.IISFeedbackServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
-        int PostFeedbackByCourseID(IISTestClient.IISFeedbackServiceReference.FeedbackObject feedback);
+        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
+        int PostFeedbackByCourseID(IISTestClient.WCFServiceReference.FeedbackObject feedback);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDResponse")]
-        System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(IISTestClient.IISFeedbackServiceReference.FeedbackObject feedback);
+        System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(IISTestClient.WCFServiceReference.FeedbackObject feedback);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackID", ReplyAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.IISFeedbackServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/COMP306_FeedbackService")]
+        [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
         int UpdateByFeedBackID(int id, string content);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackID", ReplyAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDResponse")]
@@ -307,12 +307,12 @@ namespace IISTestClient.IISFeedbackServiceReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IFeedbackServiceChannel : IISTestClient.IISFeedbackServiceReference.IFeedbackService, System.ServiceModel.IClientChannel {
+    public interface IFeedbackServiceChannel : IISTestClient.WCFServiceReference.IFeedbackService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class FeedbackServiceClient : System.ServiceModel.ClientBase<IISTestClient.IISFeedbackServiceReference.IFeedbackService>, IISTestClient.IISFeedbackServiceReference.IFeedbackService {
+    public partial class FeedbackServiceClient : System.ServiceModel.ClientBase<IISTestClient.WCFServiceReference.IFeedbackService>, IISTestClient.WCFServiceReference.IFeedbackService {
         
         public FeedbackServiceClient() {
         }
@@ -333,35 +333,35 @@ namespace IISTestClient.IISFeedbackServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public IISTestClient.IISFeedbackServiceReference.CourseObject[] GetAllCourse() {
+        public IISTestClient.WCFServiceReference.CourseObject[] GetAllCourse() {
             return base.Channel.GetAllCourse();
         }
         
-        public System.Threading.Tasks.Task<IISTestClient.IISFeedbackServiceReference.CourseObject[]> GetAllCourseAsync() {
+        public System.Threading.Tasks.Task<IISTestClient.WCFServiceReference.CourseObject[]> GetAllCourseAsync() {
             return base.Channel.GetAllCourseAsync();
         }
         
-        public IISTestClient.IISFeedbackServiceReference.CourseObject[] GetCourseByCodeOrTitle(string codeOrTitle) {
+        public IISTestClient.WCFServiceReference.CourseObject[] GetCourseByCodeOrTitle(string codeOrTitle) {
             return base.Channel.GetCourseByCodeOrTitle(codeOrTitle);
         }
         
-        public System.Threading.Tasks.Task<IISTestClient.IISFeedbackServiceReference.CourseObject[]> GetCourseByCodeOrTitleAsync(string codeOrTitle) {
+        public System.Threading.Tasks.Task<IISTestClient.WCFServiceReference.CourseObject[]> GetCourseByCodeOrTitleAsync(string codeOrTitle) {
             return base.Channel.GetCourseByCodeOrTitleAsync(codeOrTitle);
         }
         
-        public IISTestClient.IISFeedbackServiceReference.FeedbackObject[] GetFeedbackByCourseID(int courseID) {
+        public IISTestClient.WCFServiceReference.FeedbackObject[] GetFeedbackByCourseID(int courseID) {
             return base.Channel.GetFeedbackByCourseID(courseID);
         }
         
-        public System.Threading.Tasks.Task<IISTestClient.IISFeedbackServiceReference.FeedbackObject[]> GetFeedbackByCourseIDAsync(int courseID) {
+        public System.Threading.Tasks.Task<IISTestClient.WCFServiceReference.FeedbackObject[]> GetFeedbackByCourseIDAsync(int courseID) {
             return base.Channel.GetFeedbackByCourseIDAsync(courseID);
         }
         
-        public int PostFeedbackByCourseID(IISTestClient.IISFeedbackServiceReference.FeedbackObject feedback) {
+        public int PostFeedbackByCourseID(IISTestClient.WCFServiceReference.FeedbackObject feedback) {
             return base.Channel.PostFeedbackByCourseID(feedback);
         }
         
-        public System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(IISTestClient.IISFeedbackServiceReference.FeedbackObject feedback) {
+        public System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(IISTestClient.WCFServiceReference.FeedbackObject feedback) {
             return base.Channel.PostFeedbackByCourseIDAsync(feedback);
         }
         

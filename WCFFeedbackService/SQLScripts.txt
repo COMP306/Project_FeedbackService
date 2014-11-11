@@ -1,0 +1,156 @@
+﻿USE [COMP306_Feedback]
+GO
+
+/****** Object:  Table [dbo].[TCourse]    Script Date: 2014-11-02 11:37:08 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TCourse](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](50) NOT NULL,
+	[Title] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_TCourse] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+/****** Object:  Table [dbo].[TFeedback]    Script Date: 2014-11-02 11:39:05 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TFeedback](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[FeedbackContent] [nvarchar](1000) NOT NULL,
+	[CourseID] [int] NOT NULL,
+	[StudentID] [int] NOT NULL,
+	[PostDate] [date] NOT NULL,
+ CONSTRAINT [PK_TFeedback] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+USE [COMP306_Feedback]
+GO
+
+/****** Object:  Table [dbo].[TStudent]    Script Date: 2014-11-02 11:41:44 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TStudent](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[StudentID] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_TStudent] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+/****** Object:  Table [dbo].[TStudentCourse]    Script Date: 2014-11-02 11:41:54 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TStudentCourse](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[StudentID] [int] NOT NULL,
+	[CourseID] [int] NOT NULL,
+	[EndDate] [date] NOT NULL,
+ CONSTRAINT [PK_TStudentCourse] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TCourse] FOREIGN KEY([CourseID])
+REFERENCES [dbo].[TCourse] ([ID])
+GO
+ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TStudent] FOREIGN KEY([StudentID])
+REFERENCES [dbo].[TStudent] ([ID])
+GO
+ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TCourse] FOREIGN KEY([CourseID])
+REFERENCES [dbo].[TCourse] ([ID])
+GO
+ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TStudent] FOREIGN KEY([StudentID])
+REFERENCES [dbo].[TStudent] ([ID])
+GO
+
+
+
+
+/****** Object:  View [dbo].[vwCourse]    Script Date: 2014-11-02 12:00:05 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[vwCourse]
+AS
+SELECT        dbo.TCourse.*
+FROM            dbo.TCourse
+
+GO
+
+CREATE VIEW [dbo].[vwFeedback]
+AS
+SELECT        dbo.TFeedback.ID, dbo.TFeedback.FeedbackContent, dbo.TFeedback.CourseID, dbo.TFeedback.StudentID, dbo.TFeedback.PostDate
+FROM            dbo.TFeedback INNER JOIN
+                         dbo.TCourse ON dbo.TFeedback.CourseID = dbo.TCourse.ID INNER JOIN
+                         dbo.TStudent ON dbo.TFeedback.StudentID = dbo.TStudent.ID
+
+GO
+
+
+
+
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Zhixiang Hu>
+-- Create date: <2014-11-02,,>
+-- Description:	<Insert Feedback Record>
+-- =============================================
+CREATE PROCEDURE [dbo].[spInsertFeedback]
+	-- Add the parameters for the stored procedure here
+	@01_Content nvarchar(1000),
+	@02_CourseID int,
+	@03_StudentID int,
+	@04_PostDate date
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	Insert Into TFeedback values (@01_Content, @02_CourseID, @03_StudentID, getdate())
+	select SCOPE_IDENTITY()
+END
+
+GO

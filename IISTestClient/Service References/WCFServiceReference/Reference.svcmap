@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="689f0ef9-03b7-48f7-8f77-7bc77b7a07e5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://localhost/WCFFeedbackService/FeedbackService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FeedbackService.xsd" MetadataType="Schema" ID="f0d7bce3-5269-4c2d-949e-04d5a72f59d1" SourceId="1" SourceUrl="https://johnnywalker/WCFFeedbackService/FeedbackService.svc?xsd=xsd1" />
+    <MetadataFile FileName="FeedbackService1.xsd" MetadataType="Schema" ID="ae9d82a0-2393-4746-a55b-133a9e0d7f40" SourceId="1" SourceUrl="https://johnnywalker/WCFFeedbackService/FeedbackService.svc?xsd=xsd2" />
+    <MetadataFile FileName="FeedbackService2.xsd" MetadataType="Schema" ID="01b4435e-a824-4caf-931d-4b565a874d8c" SourceId="1" SourceUrl="https://johnnywalker/WCFFeedbackService/FeedbackService.svc?xsd=xsd0" />
+    <MetadataFile FileName="FeedbackService.wsdl" MetadataType="Wsdl" ID="d1f929f4-abb6-4805-8333-6f572fec5850" SourceId="1" SourceUrl="https://johnnywalker/WCFFeedbackService/FeedbackService.svc?wsdl" />
+    <MetadataFile FileName="FeedbackService.disco" MetadataType="Disco" ID="ebcf1dc8-e56f-4deb-9fff-18bcb2213769" SourceId="1" SourceUrl="https://johnnywalker/WCFFeedbackService/FeedbackService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

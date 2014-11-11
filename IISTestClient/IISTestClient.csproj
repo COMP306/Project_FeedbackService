@@ -46,7 +46,7 @@
     <Compile Include="PermissiveCertificatePolicy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\IISFeedbackServiceReference\Reference.cs">
+    <Compile Include="Service References\WCFServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -54,40 +54,40 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Service References\IISFeedbackServiceReference\FeedbackService.wsdl" />
-    <None Include="Service References\IISFeedbackServiceReference\IISTestClient.IISFeedbackServiceReference.CourseObject.datasource">
+    <None Include="Service References\WCFServiceReference\FeedbackService.wsdl" />
+    <None Include="Service References\WCFServiceReference\FeedbackService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\FeedbackService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\FeedbackService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\IISTestClient.WCFServiceReference.CourseObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\IISFeedbackServiceReference\IISTestClient.IISFeedbackServiceReference.FeedbackObject.datasource">
+    <None Include="Service References\WCFServiceReference\IISTestClient.WCFServiceReference.FeedbackObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\IISFeedbackServiceReference\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\IISFeedbackServiceReference\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\IISFeedbackServiceReference\Service2.xsd">
-      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\IISFeedbackServiceReference\" />
+    <WCFMetadataStorage Include="Service References\WCFServiceReference\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\IISFeedbackServiceReference\Service.disco" />
+    <None Include="Service References\WCFServiceReference\FeedbackService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\IISFeedbackServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\WCFServiceReference\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\IISFeedbackServiceReference\configuration.svcinfo" />
+    <None Include="Service References\WCFServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\IISFeedbackServiceReference\Reference.svcmap">
+    <None Include="Service References\WCFServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

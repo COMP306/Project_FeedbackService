@@ -62,12 +62,6 @@
     <Content Include="SQLSampleData.txt" />
     <Content Include="SQLScripts.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FeedbackEF\FeedbackEF.csproj">
-      <Project>{2467b15c-2671-4994-a625-0f6a19c019ff}</Project>
-      <Name>FeedbackEF</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\WCF\Microsoft.VisualStudio.ServiceModel.targets" />
   <ProjectExtensions>
