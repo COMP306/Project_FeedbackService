@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Security.Cryptography.X509Certificates;
 using CourseFeecback_WPF.FeedbackService;
 
 namespace CourseFeecback_WPF
@@ -23,13 +24,17 @@ namespace CourseFeecback_WPF
     {
         public MainWindow()
         {
+            PermissiveCertificatePolicy.Enact("CN=HTTPS-Server");
            InitializeComponent();
              CourseObject[]  test = getAllCourseList();
         }
 
         private CourseObject[] getAllCourseList()
         {
-            FeedbackServiceClient aClient = new FeedbackServiceClient();
+            FeedbackServiceClient aClient = new FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
+            aClient.ClientCredentials.Windows.ClientCredential.Domain = "JohnnyWalker";
+            aClient.ClientCredentials.Windows.ClientCredential.UserName = "student";
+            aClient.ClientCredentials.Windows.ClientCredential.Password = "password";
             return aClient.GetAllCourse();
         }
     }
