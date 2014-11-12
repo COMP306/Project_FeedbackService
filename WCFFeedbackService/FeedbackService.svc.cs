@@ -20,7 +20,7 @@ namespace WCFFeedbackService
         /// query all available courses
         /// </summary>
         /// <returns>a list of CourseObject object</returns>
-        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
+        //[PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public List<CourseObject> GetAllCourse()
         {
             List<CourseObject> coList = new List<CourseObject>();
@@ -50,7 +50,7 @@ namespace WCFFeedbackService
         /// </summary>
         /// <param name="codeOrTitle">course code or course title</param>
         /// <returns>a list of CourseObject object</returns>
-        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
+        //[PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public List<CourseObject> GetCourseByCodeOrTitle(string codeOrTitle)
         {
             List<CourseObject> coList = new List<CourseObject>();
@@ -74,7 +74,7 @@ namespace WCFFeedbackService
         /// </summary>
         /// <param name="courseID">Course ID</param>
         /// <returns>a list of FeecbackObject object</returns>
-        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
+        //[PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public List<FeedbackObject> GetFeedbackByCourseID(int courseID)
         {
             List<FeedbackObject> fbList = new List<FeedbackObject>();
@@ -85,7 +85,7 @@ namespace WCFFeedbackService
                                  select f).ToList();
                 foreach (vwFeedbacks feedbackEntity in feedbacks)
                 {
-                    fbList.Add(new FeedbackObject(feedbackEntity.ID, feedbackEntity.FeedbackContent, feedbackEntity.StudentID, feedbackEntity.CourseID, feedbackEntity.PostDate));
+                    fbList.Add(new FeedbackObject(feedbackEntity.ID, feedbackEntity.FeedbackContent, feedbackEntity.StudentID, feedbackEntity.CourseID, feedbackEntity.PostDate,feedbackEntity.LastModify));
                 }
             }
             return fbList;
@@ -135,6 +135,7 @@ namespace WCFFeedbackService
                 //var fb = fbEF.vwFeedbacks.Where(f => f.ID == id).FirstOrDefault();
                 var fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id);
                 fb.FeedbackContent = content;
+                fb.LastModify = DateTime.Now;
                 result = fbEF.SaveChanges();
             }
             return result;
@@ -146,14 +147,14 @@ namespace WCFFeedbackService
         /// test current user
         /// </summary>
         /// <returns>user name</returns>
-        [PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
+        //[PrincipalPermission(SecurityAction.Demand, Role = "Feedbackusers")]
         public string GetCurrentUser()
         {
             WindowsPrincipal user = new WindowsPrincipal((WindowsIdentity)Thread.CurrentPrincipal.Identity);
             if (!(user.IsInRole("Feedbackusers")))
-            { Console.WriteLine("Access denied"); }
+            { Console.WriteLine("You do not have Access."); }
             else
-            { Console.WriteLine("Access grant to Feedbackusers"); }
+            { Console.WriteLine("You belong to group Feedbackusers"); }
 
             string userName = Thread.CurrentPrincipal.Identity.Name;
             Console.WriteLine("Username is : {0}", userName);

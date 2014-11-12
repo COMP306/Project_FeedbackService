@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FeedbackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FeedbackModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="FeedbackModelStoreContainer">
           <EntitySet Name="TCourse" EntityType="FeedbackModel.Store.TCourse" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TFeedback" EntityType="FeedbackModel.Store.TFeedback" store:Type="Tables" Schema="dbo" />
@@ -23,7 +23,8 @@
       [vwFeedbacks].[FeedbackContent] AS [FeedbackContent], 
       [vwFeedbacks].[CourseID] AS [CourseID], 
       [vwFeedbacks].[StudentID] AS [StudentID], 
-      [vwFeedbacks].[PostDate] AS [PostDate]
+      [vwFeedbacks].[PostDate] AS [PostDate], 
+      [vwFeedbacks].[LastModify] AS [LastModify]
       FROM [dbo].[vwFeedbacks] AS [vwFeedbacks]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_TFeedback_TCourse" Association="FeedbackModel.Store.FK_TFeedback_TCourse">
@@ -60,6 +61,7 @@
           <Property Name="CourseID" Type="int" Nullable="false" />
           <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="PostDate" Type="date" Nullable="false" />
+          <Property Name="LastModify" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="TStudent">
           <Key>
@@ -100,12 +102,14 @@
             <PropertyRef Name="CourseID" />
             <PropertyRef Name="StudentID" />
             <PropertyRef Name="PostDate" />
+            <PropertyRef Name="LastModify" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="FeedbackContent" Type="nvarchar" Nullable="false" MaxLength="1000" />
           <Property Name="CourseID" Type="int" Nullable="false" />
           <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="PostDate" Type="date" Nullable="false" />
+          <Property Name="LastModify" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_TFeedback_TCourse">
           <End Role="TCourse" Type="FeedbackModel.Store.TCourse" Multiplicity="1" />
@@ -155,8 +159,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FeedbackModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -205,6 +208,7 @@
           <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="TCourse" Relationship="FeedbackModel.FK_TFeedback_TCourse" FromRole="TFeedback" ToRole="TCourse" />
           <NavigationProperty Name="TStudent" Relationship="FeedbackModel.FK_TFeedback_TStudent" FromRole="TFeedback" ToRole="TStudent" />
+          <Property Type="DateTime" Name="LastModify" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="TStudent">
           <Key>
@@ -243,12 +247,14 @@
             <PropertyRef Name="CourseID" />
             <PropertyRef Name="StudentID" />
             <PropertyRef Name="PostDate" />
+            <PropertyRef Name="LastModify" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="FeedbackContent" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
           <Property Name="CourseID" Type="Int32" Nullable="false" />
           <Property Name="StudentID" Type="Int32" Nullable="false" />
           <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="LastModify" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK_TFeedback_TCourse">
           <End Role="TCourse" Type="FeedbackModel.TCourse" Multiplicity="1" />
@@ -316,6 +322,7 @@
           <EntitySetMapping Name="TFeedback">
             <EntityTypeMapping TypeName="FeedbackModel.TFeedback">
               <MappingFragment StoreEntitySet="TFeedback">
+                <ScalarProperty Name="LastModify" ColumnName="LastModify" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
@@ -354,6 +361,7 @@
           <EntitySetMapping Name="vwFeedbacks">
             <EntityTypeMapping TypeName="FeedbackModel.vwFeedbacks">
               <MappingFragment StoreEntitySet="vwFeedbacks">
+                <ScalarProperty Name="LastModify" ColumnName="LastModify" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
@@ -376,8 +384,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

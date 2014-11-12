@@ -73,6 +73,7 @@ namespace WCFFeedbackService.FeedbackObjects
             private int _student_id;
             private int _course_id;
             private DateTime _post_date;
+            private DateTime _last_modify;
             [DataMember]
             public int ID
             {
@@ -103,13 +104,20 @@ namespace WCFFeedbackService.FeedbackObjects
                 get { return _post_date; }
                 set { _post_date = value; }
             }
-            public FeedbackObject(int id, string content, int student_id, int course_id, DateTime post_date)
+            [DataMember]
+            public DateTime LastModify
+            {
+                get { return _last_modify; }
+                set { _last_modify = value; }
+            }
+            public FeedbackObject(int id, string content, int student_id, int course_id, DateTime post_date,DateTime last_modify)
             {
                 this._id = id;
                 this._content = content;
                 this._student_id = student_id;
                 this._course_id = course_id;
                 this._post_date = post_date;
+                this._last_modify = last_modify;
             }
         }
 
