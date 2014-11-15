@@ -32,9 +32,11 @@ namespace CourseFeecback_WPF
         private CourseObject[] getAllCourseList()
         {
             FeedbackServiceClient aClient = new FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
-            aClient.ClientCredentials.Windows.ClientCredential.Domain = "JohnnyWalker";
-            aClient.ClientCredentials.Windows.ClientCredential.UserName = "student";
-            aClient.ClientCredentials.Windows.ClientCredential.Password = "password";
+            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                    (se, cert, chain, sslerror) =>  {return true; };
+            aClient.ClientCredentials.Windows.ClientCredential.Domain = "AlexLiu-PC";
+            aClient.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
+            aClient.ClientCredentials.Windows.ClientCredential.Password = "";
             return aClient.GetAllCourse();
         }
     }

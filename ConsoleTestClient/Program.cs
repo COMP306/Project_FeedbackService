@@ -14,14 +14,14 @@ namespace ConsoleTestClient
 
             try
             {
-                ConsoleFeedbackServiceReference.FeedbackServiceClient client = 
-                    new ConsoleFeedbackServiceReference.FeedbackServiceClient("BasicHttpBinding_IFeedbackService");
+                ConsoleFeedbackServiceReference.FeedbackServiceClient client =
+                    new ConsoleFeedbackServiceReference.FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
 
-                client.ClientCredentials.Windows.ClientCredential.Domain = "JohnnyWalker";
-                client.ClientCredentials.Windows.ClientCredential.UserName = "student";
-                client.ClientCredentials.Windows.ClientCredential.Password = "password";
-                //client.ClientCredentials.Windows.ClientCredential.UserName = "visitor";
-                //client.ClientCredentials.Windows.ClientCredential.Password = "visitor";
+                System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                  (se, cert, chain, sslerror) => { return true; };
+                client.ClientCredentials.Windows.ClientCredential.Domain = "AlexLiu-PC";
+                client.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
+                client.ClientCredentials.Windows.ClientCredential.Password = "";
 
                 string user = client.GetCurrentUser();
                 Console.WriteLine("You are : {0}", user);
