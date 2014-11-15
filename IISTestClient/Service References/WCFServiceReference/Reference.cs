@@ -170,6 +170,9 @@ namespace IISTestClient.WCFServiceReference {
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime LastModifyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime PostDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -220,6 +223,19 @@ namespace IISTestClient.WCFServiceReference {
                 if ((this.IDField.Equals(value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LastModify {
+            get {
+                return this.LastModifyField;
+            }
+            set {
+                if ((this.LastModifyField.Equals(value) != true)) {
+                    this.LastModifyField = value;
+                    this.RaisePropertyChanged("LastModify");
                 }
             }
         }
