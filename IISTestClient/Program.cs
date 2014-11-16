@@ -16,9 +16,9 @@ namespace IISTestClient
             {
                 WCFServiceReference.FeedbackServiceClient client = new WCFServiceReference.FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
 
-                client.ClientCredentials.Windows.ClientCredential.Domain = "JohnnyWalker";
-                client.ClientCredentials.Windows.ClientCredential.UserName = "student";
-                client.ClientCredentials.Windows.ClientCredential.Password = "password";
+                client.ClientCredentials.Windows.ClientCredential.Domain = "AlexLiu-PC";
+                client.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
+                client.ClientCredentials.Windows.ClientCredential.Password = "Password";
                 //client.ClientCredentials.Windows.ClientCredential.UserName = "visitor";
                 //client.ClientCredentials.Windows.ClientCredential.Password = "visitor";
 
@@ -26,13 +26,13 @@ namespace IISTestClient
 
                 //method 1:
                 //Trust all certificates, this is not a good practice as it completely ignores the server certificate and tells the service point manager that whatever certificate is fine
-                //System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                //    (se, cert, chain, sslerror) =>  {return true; };
+                System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                    (se, cert, chain, sslerror) =>  {return true; };
 
                 // method 2:
                 // trust sender
-                System.Net.ServicePointManager.ServerCertificateValidationCallback
-                    = ((sender, cert, chain, errors) => cert.Subject.Contains("JohnnyWalker")); //Servername
+                //System.Net.ServicePointManager.ServerCertificateValidationCallback
+                //    = ((sender, cert, chain, errors) => cert.Subject.Contains("AlexLiu-PC")); //Servername
 
                 string user = client.GetCurrentUser();
                 Console.WriteLine("You are : {0}", user);

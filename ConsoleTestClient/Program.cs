@@ -18,10 +18,10 @@ namespace ConsoleTestClient
                     new ConsoleFeedbackServiceReference.FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
 
                 System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                  (se, cert, chain, sslerror) => { return true; };
+                    (se, cert, chain, sslerror) => { return true; };
                 client.ClientCredentials.Windows.ClientCredential.Domain = "AlexLiu-PC";
                 client.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
-                client.ClientCredentials.Windows.ClientCredential.Password = "";
+                client.ClientCredentials.Windows.ClientCredential.Password = "Password";
 
                 string user = client.GetCurrentUser();
                 Console.WriteLine("You are : {0}", user);

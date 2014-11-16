@@ -36,7 +36,7 @@ namespace CourseFeecback_WPF
                     (se, cert, chain, sslerror) =>  {return true; };
             aClient.ClientCredentials.Windows.ClientCredential.Domain = "AlexLiu-PC";
             aClient.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
-            aClient.ClientCredentials.Windows.ClientCredential.Password = "";
+            aClient.ClientCredentials.Windows.ClientCredential.Password = "Password";
             return aClient.GetAllCourse();
         }
     }
