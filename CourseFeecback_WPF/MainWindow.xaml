@@ -49,7 +49,30 @@
                     <TextBlock Text="Comments list :" Margin="10,10,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
                     <Button Content="New" Height="30" Click="Button_Click_NewComment" Margin="268,-30,9.8,20" RenderTransformOrigin="0.812,0.593" />
 
-                    <ListBox Height="552" x:Name="lbFeedback" Margin="10,0,9.8,0">
+                    <ListBox Height="552" x:Name="lbFeedback" Margin="10,0,9.8,0" HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.8*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                            
+                                <TextBlock Text="{Binding CourseID}"  />
+                                    <TextBlock Text="{Binding Content}" />
+                                    <TextBlock Text="{Binding PostDate}" />
+                                    <TextBlock Text="{Binding LastModify}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
 

@@ -194,7 +194,7 @@ namespace CourseFeecback_WPF
                     List<FeedbackObject> courseFeedback = GetFeedbackByCourseID(co.ID);
                     foreach (var c in courseFeedback)
                     {
-                        lbFeedback.Items.Add(c);
+                        lbFeedback.ItemsSource = courseFeedback;
                     }
                 }
             }
