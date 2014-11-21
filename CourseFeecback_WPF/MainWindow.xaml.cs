@@ -29,10 +29,10 @@ namespace CourseFeecback_WPF
             InitializeComponent();
             initListBox();
             ListComment_Scrolldd.Visibility = Visibility.Collapsed;
-            
+
         }
 
-         enum saveStatus
+        enum saveStatus
         {
             newComment,
             updateComemnt
@@ -139,7 +139,8 @@ namespace CourseFeecback_WPF
                 //show alert
                 //   MessageBox.Show("The Selected Index is" + listBox1.SelectedIndex);
             }
-            else {
+            else
+            {
                 courseListBox.Items.Clear();
                 foreach (CourseObject co in GetCourseByCodeOrTitle(tbCourseName.Text))
                 {
@@ -159,6 +160,7 @@ namespace CourseFeecback_WPF
         private void Button_Click_NewComment(object sender, RoutedEventArgs e)
         {
             ListComment_Scrolldd.Visibility = Visibility.Visible;
+
         }
 
 
@@ -166,17 +168,17 @@ namespace CourseFeecback_WPF
         {
             if (ss == saveStatus.newComment) // post a  new comment
             {
-                if (currentFeedbackList != null || currentFeedbackList.Count>=0) //wrong...
+                if (currentFeedbackList != null || currentFeedbackList.Count >= 0) //wrong...
                 {
                     FeedbackObject fo = new FeedbackObject();
-                    FeedbackObject cf= currentFeedbackList[indexOfCommentList];
+                    FeedbackObject cf = currentFeedbackList[indexOfCommentList];
                     fo.CourseID = cf.CourseID;
                     fo.Content = cTboxComment.Text.ToString();
                     PostFeedbackByCourseID(fo);
                 }
             }
             else // update an old comment
-            { 
+            {
             }
         }
 
@@ -200,7 +202,27 @@ namespace CourseFeecback_WPF
             }
         }
 
+
         #endregion list items click
+
+        #region feedback list item Click
+
+        private void feedbackListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null)
+            {
+                if (lbFeedback.SelectedIndex != -1)
+                {
+                    FeedbackObject fo = currentFeedbackList[lbFeedback.SelectedIndex];
+                    cTboxUsername.Text = fo.StudentID.ToString();
+                    cTboxComment.Text = fo.Content.ToString();
+                    ListComment_Scrolldd.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        #endregion feedback list item Click
 
     }
 }
