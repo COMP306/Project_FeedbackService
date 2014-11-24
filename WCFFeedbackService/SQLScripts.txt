@@ -21,32 +21,7 @@ CREATE TABLE [dbo].[TCourse](
 GO
 
 
-/****** Object:  Table [dbo].[TFeedback]    Script Date: 2014-11-02 11:39:05 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[TFeedback](
-	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[FeedbackContent] [nvarchar](1000) NOT NULL,
-	[CourseID] [int] NOT NULL,
-	[StudentID] [int] NOT NULL,
-	[PostDate] [date] NOT NULL,
-	[LastModify] [date] NOT NULL,
- CONSTRAINT [PK_TFeedback] PRIMARY KEY CLUSTERED 
-(
-	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-USE [COMP306_Feedback]
-GO
-
-/****** Object:  Table [dbo].[TStudent]    Script Date: 2014-11-02 11:41:44 ******/
+/****** Object:  Table [dbo].[TStudent]    Script Date: 2014-11-24 00:18:47 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -64,18 +39,11 @@ CREATE TABLE [dbo].[TStudent](
 
 GO
 
-
-/****** Object:  Table [dbo].[TStudentCourse]    Script Date: 2014-11-02 11:41:54 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
+/****** Object:  Table [dbo].[TStudentCourse]    Script Date: 2014-11-24 00:19:09 ******/
 CREATE TABLE [dbo].[TStudentCourse](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
-	[StudentID] [int] NOT NULL,
-	[CourseID] [int] NOT NULL,
+	[TStudentID] [int] NOT NULL,
+	[TCourseID] [int] NOT NULL,
 	[EndDate] [date] NOT NULL,
  CONSTRAINT [PK_TStudentCourse] PRIMARY KEY CLUSTERED 
 (
@@ -85,24 +53,58 @@ CREATE TABLE [dbo].[TStudentCourse](
 
 GO
 
+ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TCourse] FOREIGN KEY([TCourseID])
+REFERENCES [dbo].[TCourse] ([ID])
+GO
 
-ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TCourse] FOREIGN KEY([CourseID])
-REFERENCES [dbo].[TCourse] ([ID])
+ALTER TABLE [dbo].[TStudentCourse] CHECK CONSTRAINT [FK_TStudentCourse_TCourse]
 GO
-ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TStudent] FOREIGN KEY([StudentID])
-REFERENCES [dbo].[TStudent] ([ID])
-GO
-ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TCourse] FOREIGN KEY([CourseID])
-REFERENCES [dbo].[TCourse] ([ID])
-GO
-ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TStudent] FOREIGN KEY([StudentID])
+
+ALTER TABLE [dbo].[TStudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_TStudentCourse_TStudent] FOREIGN KEY([TStudentID])
 REFERENCES [dbo].[TStudent] ([ID])
 GO
 
+ALTER TABLE [dbo].[TStudentCourse] CHECK CONSTRAINT [FK_TStudentCourse_TStudent]
+GO
+
+
+/****** Object:  Table [dbo].[TFeedback]    Script Date: 2014-11-24 00:19:32 ******/
+CREATE TABLE [dbo].[TFeedback](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[FeedbackContent] [nvarchar](1000) NOT NULL,
+	[TCourseID] [int] NOT NULL,
+	[TStudentID] [int] NOT NULL,
+	[PostDate] [date] NOT NULL CONSTRAINT [DF_TFeedback_PostDate]  DEFAULT (getdate()),
+	[LastModify] [date] NOT NULL CONSTRAINT [DF_TFeedback_LastModify]  DEFAULT (getdate()),
+	[IsAnonymous] [char](1) NULL,
+ CONSTRAINT [PK_TFeedback] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TCourse] FOREIGN KEY([TCourseID])
+REFERENCES [dbo].[TCourse] ([ID])
+GO
+
+ALTER TABLE [dbo].[TFeedback] CHECK CONSTRAINT [FK_TFeedback_TCourse]
+GO
+
+ALTER TABLE [dbo].[TFeedback]  WITH CHECK ADD  CONSTRAINT [FK_TFeedback_TStudent] FOREIGN KEY([TStudentID])
+REFERENCES [dbo].[TStudent] ([ID])
+GO
+
+ALTER TABLE [dbo].[TFeedback] CHECK CONSTRAINT [FK_TFeedback_TStudent]
+GO
 
 
 
-/****** Object:  View [dbo].[vwCourse]    Script Date: 2014-11-02 12:00:05 ******/
+/****** Object:  View [dbo].[vwCourses]    Script Date: 2014-11-24 00:20:38 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -116,42 +118,35 @@ FROM            dbo.TCourse
 
 GO
 
-CREATE VIEW [dbo].[vwFeedbacks]
-AS
-SELECT        dbo.TFeedback.ID, dbo.TFeedback.FeedbackContent, dbo.TFeedback.CourseID, dbo.TFeedback.StudentID, dbo.TFeedback.PostDate
-FROM            dbo.TFeedback INNER JOIN
-                         dbo.TCourse ON dbo.TFeedback.CourseID = dbo.TCourse.ID INNER JOIN
-                         dbo.TStudent ON dbo.TFeedback.StudentID = dbo.TStudent.ID
-
+/****** Object:  View [dbo].[vwStudentCourse]    Script Date: 2014-11-24 00:21:11 ******/
+SET ANSI_NULLS ON
 GO
-
-
-
-
 
 SET QUOTED_IDENTIFIER ON
 GO
 
--- =============================================
--- Author:		<Zhixiang Hu>
--- Create date: <2014-11-02,,>
--- Description:	<Insert Feedback Record>
--- =============================================
-CREATE PROCEDURE [dbo].[spInsertFeedback]
-	-- Add the parameters for the stored procedure here
-	@01_Content nvarchar(1000),
-	@02_CourseID int,
-	@03_StudentID int,
-	@04_PostDate date
+CREATE VIEW [dbo].[vwStudentCourse]
 AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
+SELECT        dbo.TStudentCourse.ID, dbo.TStudentCourse.TStudentID, dbo.TStudent.StudentID, dbo.TStudentCourse.TCourseID, dbo.TCourse.Code, dbo.TCourse.Title, dbo.TStudentCourse.EndDate
+FROM            dbo.TCourse INNER JOIN
+                         dbo.TStudentCourse ON dbo.TCourse.ID = dbo.TStudentCourse.TCourseID INNER JOIN
+                         dbo.TStudent ON dbo.TStudentCourse.TStudentID = dbo.TStudent.ID
 
-    -- Insert statements for procedure here
-	Insert Into TFeedback values (@01_Content, @02_CourseID, @03_StudentID, getdate())
-	select SCOPE_IDENTITY()
-END
+GO
+
+/****** Object:  View [dbo].[vwFeedbacks]    Script Date: 2014-11-24 00:21:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[vwFeedbacks]
+AS
+SELECT        dbo.TFeedback.ID, dbo.TFeedback.FeedbackContent, dbo.TStudent.StudentID, dbo.TCourse.Code AS CourseCode, dbo.TCourse.Title AS CourseTitle, dbo.TFeedback.PostDate, dbo.TFeedback.LastModify, 
+                         dbo.TFeedback.TCourseID, dbo.TFeedback.TStudentID, dbo.TFeedback.IsAnonymous
+FROM            dbo.TFeedback INNER JOIN
+                         dbo.TCourse ON dbo.TFeedback.TCourseID = dbo.TCourse.ID INNER JOIN
+                         dbo.TStudent ON dbo.TFeedback.TStudentID = dbo.TStudent.ID
 
 GO
