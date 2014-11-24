@@ -68,7 +68,9 @@
     <Content Include="FeedbackService.svc" />
     <Content Include="SQLSampleData.txt" />
     <Content Include="SQLScripts.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FeedbackEntity.Context.cs">
@@ -108,6 +110,9 @@
       <DependentUpon>FeedbackEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="vwFeedbacks.cs">
+      <DependentUpon>FeedbackEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwStudentCourse.cs">
       <DependentUpon>FeedbackEntity.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -157,7 +162,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>24120</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:26117/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

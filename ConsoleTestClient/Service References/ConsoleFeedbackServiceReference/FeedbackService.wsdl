@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FeedbackService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="WS2007HttpBinding_IFeedbackService_policy">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IFeedbackService_policy">
     <wsp:ExactlyOne>
       <wsp:All>
-        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+        <http:NegotiateAuthentication xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
           <wsp:Policy>
             <sp:TransportToken>
               <wsp:Policy>
-                <sp:HttpsToken />
+                <sp:HttpsToken RequireClientCertificate="false" />
               </wsp:Policy>
             </sp:TransportToken>
             <sp:AlgorithmSuite>
@@ -20,95 +21,16 @@
                 <sp:Strict />
               </wsp:Policy>
             </sp:Layout>
-            <sp:IncludeTimestamp />
           </wsp:Policy>
         </sp:TransportBinding>
-        <sp:EndorsingSupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
-          <wsp:Policy>
-            <sp:SecureConversationToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-              <wsp:Policy>
-                <sp:BootstrapPolicy>
-                  <wsp:Policy>
-                    <sp:SignedParts>
-                      <sp:Body />
-                      <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-                      <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-                      <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-                      <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-                      <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-                      <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-                      <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-                    </sp:SignedParts>
-                    <sp:EncryptedParts>
-                      <sp:Body />
-                    </sp:EncryptedParts>
-                    <sp:TransportBinding>
-                      <wsp:Policy>
-                        <sp:TransportToken>
-                          <wsp:Policy>
-                            <sp:HttpsToken />
-                          </wsp:Policy>
-                        </sp:TransportToken>
-                        <sp:AlgorithmSuite>
-                          <wsp:Policy>
-                            <sp:Basic256 />
-                          </wsp:Policy>
-                        </sp:AlgorithmSuite>
-                        <sp:Layout>
-                          <wsp:Policy>
-                            <sp:Strict />
-                          </wsp:Policy>
-                        </sp:Layout>
-                        <sp:IncludeTimestamp />
-                      </wsp:Policy>
-                    </sp:TransportBinding>
-                    <sp:EndorsingSupportingTokens>
-                      <wsp:Policy>
-                        <sp:SpnegoContextToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-                          <wsp:Policy>
-                            <sp:MustNotSendCancel />
-                            <sp:MustNotSendAmend />
-                            <sp:MustNotSendRenew />
-                          </wsp:Policy>
-                        </sp:SpnegoContextToken>
-                      </wsp:Policy>
-                    </sp:EndorsingSupportingTokens>
-                    <sp:Wss11>
-                      <wsp:Policy />
-                    </sp:Wss11>
-                    <sp:Trust13>
-                      <wsp:Policy>
-                        <sp:MustSupportIssuedTokens />
-                        <sp:RequireClientEntropy />
-                        <sp:RequireServerEntropy />
-                      </wsp:Policy>
-                    </sp:Trust13>
-                  </wsp:Policy>
-                </sp:BootstrapPolicy>
-                <sp:MustNotSendAmend />
-              </wsp:Policy>
-            </sp:SecureConversationToken>
-          </wsp:Policy>
-        </sp:EndorsingSupportingTokens>
-        <sp:Wss11 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
-          <wsp:Policy />
-        </sp:Wss11>
-        <sp:Trust13 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
-          <wsp:Policy>
-            <sp:MustSupportIssuedTokens />
-            <sp:RequireClientEntropy />
-            <sp:RequireServerEntropy />
-          </wsp:Policy>
-        </sp:Trust13>
-        <wsaw:UsingAddressing />
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="https://alexliu-pc/WCFFeedbackService/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="https://alexliu-pc/WCFFeedbackService/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects" />
-      <xsd:import schemaLocation="https://alexliu-pc/WCFFeedbackService/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8080/FeedbackService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8080/FeedbackService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects" />
+      <xsd:import schemaLocation="http://localhost:8080/FeedbackService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IFeedbackService_GetAllCourse_InputMessage">
@@ -193,85 +115,82 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IFeedbackService/GetCurrentUserResponse" message="tns:IFeedbackService_GetCurrentUser_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="WS2007HttpBinding_IFeedbackService" type="tns:IFeedbackService">
-    <wsp:PolicyReference URI="#WS2007HttpBinding_IFeedbackService_policy" />
-    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+  <wsdl:binding name="BasicHttpBinding_IFeedbackService" type="tns:IFeedbackService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IFeedbackService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAllCourse">
-      <soap12:operation soapAction="http://tempuri.org/IFeedbackService/GetAllCourse" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IFeedbackService/GetAllCourse" style="document" />
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:output>
       <wsdl:fault name="FaultFeedbackInfoFault">
-        <soap12:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
+        <soap:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetCourseByCodeOrTitle">
-      <soap12:operation soapAction="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitle" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IFeedbackService/GetCourseByCodeOrTitle" style="document" />
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:output>
       <wsdl:fault name="FaultFeedbackInfoFault">
-        <soap12:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
+        <soap:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetFeedbackByCourseID">
-      <soap12:operation soapAction="http://tempuri.org/IFeedbackService/GetFeedbackByCourseID" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IFeedbackService/GetFeedbackByCourseID" style="document" />
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:output>
       <wsdl:fault name="FaultFeedbackInfoFault">
-        <soap12:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
+        <soap:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="PostFeedbackByCourseID">
-      <soap12:operation soapAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID" style="document" />
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:output>
       <wsdl:fault name="FaultFeedbackInfoFault">
-        <soap12:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
+        <soap:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="UpdateByFeedBackID">
-      <soap12:operation soapAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackID" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackID" style="document" />
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:output>
       <wsdl:fault name="FaultFeedbackInfoFault">
-        <soap12:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
+        <soap:fault use="literal" name="FaultFeedbackInfoFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetCurrentUser">
-      <soap12:operation soapAction="http://tempuri.org/IFeedbackService/GetCurrentUser" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IFeedbackService/GetCurrentUser" style="document" />
       <wsdl:input>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal" />
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="FeedbackService">
-    <wsdl:port name="WS2007HttpBinding_IFeedbackService" binding="tns:WS2007HttpBinding_IFeedbackService">
-      <soap12:address location="https://localhost/WCFFeedbackService/Service.svc" />
-      <wsa10:EndpointReference>
-        <wsa10:Address>https://localhost/WCFFeedbackService/Service.svc</wsa10:Address>
-      </wsa10:EndpointReference>
+    <wsdl:port name="BasicHttpBinding_IFeedbackService" binding="tns:BasicHttpBinding_IFeedbackService">
+      <soap:address location="https://localhost:8000/FeedbackService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -25,7 +25,7 @@ namespace WCFFeedbackService
 
         [OperationContract]
         [FaultContract(typeof(FaultFeedbackInfo))]
-        int PostFeedbackByCourseID(FeedbackObject feedback);
+        int PostFeedbackByCourseID(int tcourse_id, string content, bool isAnonymous);
 
         [OperationContract]
         [FaultContract(typeof(FaultFeedbackInfo))]

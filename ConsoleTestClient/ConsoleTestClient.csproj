@@ -62,16 +62,6 @@
     <None Include="Service References\ConsoleFeedbackServiceReference\ConsoleTestClient.ConsoleFeedbackServiceReference.FeedbackObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ConsoleFeedbackServiceReference\FeedbackService1.wsdl" />
-    <None Include="Service References\ConsoleFeedbackServiceReference\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ConsoleFeedbackServiceReference\Service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ConsoleFeedbackServiceReference\Service2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -86,13 +76,23 @@
     <None Include="Service References\ConsoleFeedbackServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\ConsoleFeedbackServiceReference\FeedbackService.wsdl" />
+    <None Include="Service References\ConsoleFeedbackServiceReference\FeedbackService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ConsoleFeedbackServiceReference\FeedbackService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ConsoleFeedbackServiceReference\FeedbackService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ConsoleFeedbackServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ConsoleFeedbackServiceReference\Service.disco" />
+    <None Include="Service References\ConsoleFeedbackServiceReference\FeedbackService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

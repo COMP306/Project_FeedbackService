@@ -44,7 +44,9 @@
   <xs:element name="PostFeedbackByCourseID">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects" minOccurs="0" name="feedback" nillable="true" type="q4:FeedbackObject" />
+        <xs:element minOccurs="0" name="tcourse_id" type="xs:int" />
+        <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isAnonymous" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

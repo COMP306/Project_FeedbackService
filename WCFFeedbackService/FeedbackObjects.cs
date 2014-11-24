@@ -70,10 +70,14 @@ namespace WCFFeedbackService.FeedbackObjects
         {
             private int _id;
             private string _content;
-            private int _student_id;
-            private int _course_id;
+            private string _student_id;
+            private string _course_code;
+            private string _course_title;
+            private int _tcourse_id;
+            private int _tstudent_id;
             private DateTime _post_date;
             private DateTime _last_modify;
+            private bool _is_anonymous; 
             [DataMember]
             public int ID
             {
@@ -87,16 +91,34 @@ namespace WCFFeedbackService.FeedbackObjects
                 set { _content = value; }
             }
             [DataMember]
-            public int StudentID
+            public string StudentID
             {
                 get { return _student_id; }
                 set { _student_id = value; }
             }
             [DataMember]
-            public int CourseID
+            public string Course_Code
             {
-                get { return _course_id; }
-                set { _course_id = value; }
+                get { return _course_code; }
+                set { _course_code = value; }
+            }
+            [DataMember]
+            public string Course_Title
+            {
+                get { return _course_title; }
+                set { _course_title = value; }
+            }
+            [DataMember]
+            public int TCourseID
+            {
+                get { return _tcourse_id; }
+                set { _tcourse_id = value; }
+            }
+            [DataMember]
+            public int TStudentID
+            {
+                get { return _tstudent_id; }
+                set { _tstudent_id = value; }
             }
             [DataMember]
             public DateTime PostDate
@@ -110,14 +132,24 @@ namespace WCFFeedbackService.FeedbackObjects
                 get { return _last_modify; }
                 set { _last_modify = value; }
             }
-            public FeedbackObject(int id, string content, int student_id, int course_id, DateTime post_date,DateTime last_modify)
+            [DataMember]
+            public bool IsAnonymous
+            {
+                get { return _is_anonymous; }
+                set { _is_anonymous = value; }
+            }
+            public FeedbackObject(int id, string content, string student_id, string course_code, string course_title, int tcourse_id, int tstudent_id,DateTime post_date,DateTime last_modify, bool is_anonymous)
             {
                 this._id = id;
                 this._content = content;
                 this._student_id = student_id;
-                this._course_id = course_id;
+                this._course_code = course_code;
+                this._course_title = course_title;
+                this._tcourse_id = tcourse_id;
+                this._tstudent_id = tstudent_id;
                 this._post_date = post_date;
                 this._last_modify = last_modify;
+                this._is_anonymous = is_anonymous;
             }
         }
 

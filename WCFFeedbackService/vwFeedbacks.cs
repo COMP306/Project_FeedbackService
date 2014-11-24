@@ -16,9 +16,13 @@ namespace WCFFeedbackService
     {
         public int ID { get; set; }
         public string FeedbackContent { get; set; }
-        public int CourseID { get; set; }
-        public int StudentID { get; set; }
+        public string StudentID { get; set; }
+        public string CourseCode { get; set; }
+        public string CourseTitle { get; set; }
         public System.DateTime PostDate { get; set; }
         public System.DateTime LastModify { get; set; }
+        public int TCourseID { get; set; }
+        public int TStudentID { get; set; }
+        public string IsAnonymous { get; set; }
     }
 }

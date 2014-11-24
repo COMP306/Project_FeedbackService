@@ -21,11 +21,26 @@
             <DefiningQuery>SELECT 
       [vwFeedbacks].[ID] AS [ID], 
       [vwFeedbacks].[FeedbackContent] AS [FeedbackContent], 
-      [vwFeedbacks].[CourseID] AS [CourseID], 
       [vwFeedbacks].[StudentID] AS [StudentID], 
+      [vwFeedbacks].[CourseCode] AS [CourseCode], 
+      [vwFeedbacks].[CourseTitle] AS [CourseTitle], 
       [vwFeedbacks].[PostDate] AS [PostDate], 
-      [vwFeedbacks].[LastModify] AS [LastModify]
+      [vwFeedbacks].[LastModify] AS [LastModify], 
+      [vwFeedbacks].[TCourseID] AS [TCourseID], 
+      [vwFeedbacks].[TStudentID] AS [TStudentID], 
+      [vwFeedbacks].[IsAnonymous] AS [IsAnonymous]
       FROM [dbo].[vwFeedbacks] AS [vwFeedbacks]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwStudentCourse" EntityType="FeedbackModel.Store.vwStudentCourse" store:Type="Views" store:Schema="dbo" store:Name="vwStudentCourse">
+            <DefiningQuery>SELECT 
+      [vwStudentCourse].[ID] AS [ID], 
+      [vwStudentCourse].[TStudentID] AS [TStudentID], 
+      [vwStudentCourse].[StudentID] AS [StudentID], 
+      [vwStudentCourse].[TCourseID] AS [TCourseID], 
+      [vwStudentCourse].[Code] AS [Code], 
+      [vwStudentCourse].[Title] AS [Title], 
+      [vwStudentCourse].[EndDate] AS [EndDate]
+      FROM [dbo].[vwStudentCourse] AS [vwStudentCourse]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_TFeedback_TCourse" Association="FeedbackModel.Store.FK_TFeedback_TCourse">
             <End Role="TCourse" EntitySet="TCourse" />
@@ -58,10 +73,11 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FeedbackContent" Type="nvarchar" Nullable="false" MaxLength="1000" />
-          <Property Name="CourseID" Type="int" Nullable="false" />
-          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="TCourseID" Type="int" Nullable="false" />
+          <Property Name="TStudentID" Type="int" Nullable="false" />
           <Property Name="PostDate" Type="date" Nullable="false" />
           <Property Name="LastModify" Type="date" Nullable="false" />
+          <Property Name="IsAnonymous" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="TStudent">
           <Key>
@@ -75,8 +91,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="StudentID" Type="int" Nullable="false" />
-          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="TStudentID" Type="int" Nullable="false" />
+          <Property Name="TCourseID" Type="int" Nullable="false" />
           <Property Name="EndDate" Type="date" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -99,17 +115,45 @@
           <Key>
             <PropertyRef Name="ID" />
             <PropertyRef Name="FeedbackContent" />
-            <PropertyRef Name="CourseID" />
             <PropertyRef Name="StudentID" />
+            <PropertyRef Name="CourseCode" />
+            <PropertyRef Name="CourseTitle" />
             <PropertyRef Name="PostDate" />
             <PropertyRef Name="LastModify" />
+            <PropertyRef Name="TCourseID" />
+            <PropertyRef Name="TStudentID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="FeedbackContent" Type="nvarchar" Nullable="false" MaxLength="1000" />
-          <Property Name="CourseID" Type="int" Nullable="false" />
-          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CourseCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CourseTitle" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="PostDate" Type="date" Nullable="false" />
           <Property Name="LastModify" Type="date" Nullable="false" />
+          <Property Name="TCourseID" Type="int" Nullable="false" />
+          <Property Name="TStudentID" Type="int" Nullable="false" />
+          <Property Name="IsAnonymous" Type="char" MaxLength="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'COMP306_Feedback.dbo.vwStudentCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vwStudentCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TStudentID" />
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="TCourseID" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="EndDate" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TStudentID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="TCourseID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_TFeedback_TCourse">
           <End Role="TCourse" Type="FeedbackModel.Store.TCourse" Multiplicity="1" />
@@ -119,7 +163,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TFeedback">
-              <PropertyRef Name="CourseID" />
+              <PropertyRef Name="TCourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -131,7 +175,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TFeedback">
-              <PropertyRef Name="StudentID" />
+              <PropertyRef Name="TStudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -143,7 +187,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TStudentCourse">
-              <PropertyRef Name="CourseID" />
+              <PropertyRef Name="TCourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -155,7 +199,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="TStudentCourse">
-              <PropertyRef Name="StudentID" />
+              <PropertyRef Name="TStudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -165,27 +209,28 @@
       <Schema Namespace="FeedbackModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FeedbackEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="TCourse" EntityType="FeedbackModel.TCourse" />
-          <EntitySet Name="TFeedback" EntityType="FeedbackModel.TFeedback" />
           <EntitySet Name="TStudent" EntityType="FeedbackModel.TStudent" />
-          <EntitySet Name="TStudentCourse" EntityType="FeedbackModel.TStudentCourse" />
           <EntitySet Name="vwCourses" EntityType="FeedbackModel.vwCourses" />
-          <EntitySet Name="vwFeedbacks" EntityType="FeedbackModel.vwFeedbacks" />
-          <AssociationSet Name="FK_TFeedback_TCourse" Association="FeedbackModel.FK_TFeedback_TCourse">
-            <End Role="TCourse" EntitySet="TCourse" />
-            <End Role="TFeedback" EntitySet="TFeedback" />
-          </AssociationSet>
+          <EntitySet Name="vwStudentCourse" EntityType="FeedbackModel.vwStudentCourse" />
+          <EntitySet Name="TStudentCourse" EntityType="FeedbackModel.TStudentCourse" />
           <AssociationSet Name="FK_TStudentCourse_TCourse" Association="FeedbackModel.FK_TStudentCourse_TCourse">
             <End Role="TCourse" EntitySet="TCourse" />
             <End Role="TStudentCourse" EntitySet="TStudentCourse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TFeedback_TStudent" Association="FeedbackModel.FK_TFeedback_TStudent">
-            <End Role="TStudent" EntitySet="TStudent" />
-            <End Role="TFeedback" EntitySet="TFeedback" />
           </AssociationSet>
           <AssociationSet Name="FK_TStudentCourse_TStudent" Association="FeedbackModel.FK_TStudentCourse_TStudent">
             <End Role="TStudent" EntitySet="TStudent" />
             <End Role="TStudentCourse" EntitySet="TStudentCourse" />
           </AssociationSet>
+          <EntitySet Name="TFeedback" EntityType="FeedbackModel.TFeedback" />
+          <AssociationSet Name="FK_TFeedback_TCourse" Association="FeedbackModel.FK_TFeedback_TCourse">
+            <End Role="TCourse" EntitySet="TCourse" />
+            <End Role="TFeedback" EntitySet="TFeedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TFeedback_TStudent" Association="FeedbackModel.FK_TFeedback_TStudent">
+            <End Role="TStudent" EntitySet="TStudent" />
+            <End Role="TFeedback" EntitySet="TFeedback" />
+          </AssociationSet>
+          <EntitySet Name="vwFeedbacks" EntityType="FeedbackModel.vwFeedbacks" />
         </EntityContainer>
         <EntityType Name="TCourse">
           <Key>
@@ -194,41 +239,17 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="TFeedback" Relationship="FeedbackModel.FK_TFeedback_TCourse" FromRole="TCourse" ToRole="TFeedback" />
           <NavigationProperty Name="TStudentCourse" Relationship="FeedbackModel.FK_TStudentCourse_TCourse" FromRole="TCourse" ToRole="TStudentCourse" />
-        </EntityType>
-        <EntityType Name="TFeedback">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="FeedbackContent" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
-          <Property Name="CourseID" Type="Int32" Nullable="false" />
-          <Property Name="StudentID" Type="Int32" Nullable="false" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="TCourse" Relationship="FeedbackModel.FK_TFeedback_TCourse" FromRole="TFeedback" ToRole="TCourse" />
-          <NavigationProperty Name="TStudent" Relationship="FeedbackModel.FK_TFeedback_TStudent" FromRole="TFeedback" ToRole="TStudent" />
-          <Property Type="DateTime" Name="LastModify" Nullable="false" Precision="0" />
-        </EntityType>
+          <NavigationProperty Name="TFeedback" Relationship="FeedbackModel.FK_TFeedback_TCourse" FromRole="TCourse" ToRole="TFeedback" />
+          </EntityType>
         <EntityType Name="TStudent">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="StudentID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="TFeedback" Relationship="FeedbackModel.FK_TFeedback_TStudent" FromRole="TStudent" ToRole="TFeedback" />
           <NavigationProperty Name="TStudentCourse" Relationship="FeedbackModel.FK_TStudentCourse_TStudent" FromRole="TStudent" ToRole="TStudentCourse" />
-        </EntityType>
-        <EntityType Name="TStudentCourse">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentID" Type="Int32" Nullable="false" />
-          <Property Name="CourseID" Type="Int32" Nullable="false" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="TCourse" Relationship="FeedbackModel.FK_TStudentCourse_TCourse" FromRole="TStudentCourse" ToRole="TCourse" />
-          <NavigationProperty Name="TStudent" Relationship="FeedbackModel.FK_TStudentCourse_TStudent" FromRole="TStudentCourse" ToRole="TStudent" />
+          <NavigationProperty Name="TFeedback" Relationship="FeedbackModel.FK_TFeedback_TStudent" FromRole="TStudent" ToRole="TFeedback" />
         </EntityType>
         <EntityType Name="vwCourses">
           <Key>
@@ -240,70 +261,84 @@
           <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
+        <EntityType Name="vwStudentCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TStudentID" />
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="TCourseID" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="EndDate" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="TStudentID" Nullable="false" />
+          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TCourseID" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="TStudentCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TCourse" Relationship="FeedbackModel.FK_TStudentCourse_TCourse" FromRole="TStudentCourse" ToRole="TCourse" />
+          <NavigationProperty Name="TStudent" Relationship="FeedbackModel.FK_TStudentCourse_TStudent" FromRole="TStudentCourse" ToRole="TStudent" />
+        </EntityType>
+        <Association Name="FK_TStudentCourse_TCourse">
+          <End Type="FeedbackModel.TCourse" Role="TCourse" Multiplicity="1" />
+          <End Type="FeedbackModel.TStudentCourse" Role="TStudentCourse" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_TStudentCourse_TStudent">
+          <End Type="FeedbackModel.TStudent" Role="TStudent" Multiplicity="1" />
+          <End Type="FeedbackModel.TStudentCourse" Role="TStudentCourse" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TFeedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FeedbackContent" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PostDate" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="LastModify" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TCourse" Relationship="FeedbackModel.FK_TFeedback_TCourse" FromRole="TFeedback" ToRole="TCourse" />
+          <NavigationProperty Name="TStudent" Relationship="FeedbackModel.FK_TFeedback_TStudent" FromRole="TFeedback" ToRole="TStudent" />
+          <Property Type="String" Name="IsAnonymous" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_TFeedback_TCourse">
+          <End Type="FeedbackModel.TCourse" Role="TCourse" Multiplicity="1" />
+          <End Type="FeedbackModel.TFeedback" Role="TFeedback" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_TFeedback_TStudent">
+          <End Type="FeedbackModel.TStudent" Role="TStudent" Multiplicity="1" />
+          <End Type="FeedbackModel.TFeedback" Role="TFeedback" Multiplicity="*" />
+        </Association>
         <EntityType Name="vwFeedbacks">
           <Key>
             <PropertyRef Name="ID" />
             <PropertyRef Name="FeedbackContent" />
-            <PropertyRef Name="CourseID" />
             <PropertyRef Name="StudentID" />
+            <PropertyRef Name="CourseCode" />
+            <PropertyRef Name="CourseTitle" />
             <PropertyRef Name="PostDate" />
             <PropertyRef Name="LastModify" />
+            <PropertyRef Name="TCourseID" />
+            <PropertyRef Name="TStudentID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="FeedbackContent" Type="String" Nullable="false" MaxLength="1000" Unicode="true" FixedLength="false" />
-          <Property Name="CourseID" Type="Int32" Nullable="false" />
-          <Property Name="StudentID" Type="Int32" Nullable="false" />
-          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="FeedbackContent" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StudentID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CourseTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PostDate" Nullable="false" Precision="0" />
           <Property Type="DateTime" Name="LastModify" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="TCourseID" Nullable="false" />
+          <Property Type="Int32" Name="TStudentID" Nullable="false" />
+          <Property Type="String" Name="IsAnonymous" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
-        <Association Name="FK_TFeedback_TCourse">
-          <End Role="TCourse" Type="FeedbackModel.TCourse" Multiplicity="1" />
-          <End Role="TFeedback" Type="FeedbackModel.TFeedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCourse">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TFeedback">
-              <PropertyRef Name="CourseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TStudentCourse_TCourse">
-          <End Role="TCourse" Type="FeedbackModel.TCourse" Multiplicity="1" />
-          <End Role="TStudentCourse" Type="FeedbackModel.TStudentCourse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCourse">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TStudentCourse">
-              <PropertyRef Name="CourseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TFeedback_TStudent">
-          <End Role="TStudent" Type="FeedbackModel.TStudent" Multiplicity="1" />
-          <End Role="TFeedback" Type="FeedbackModel.TFeedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TStudent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TFeedback">
-              <PropertyRef Name="StudentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TStudentCourse_TStudent">
-          <End Role="TStudent" Type="FeedbackModel.TStudent" Multiplicity="1" />
-          <End Role="TStudentCourse" Type="FeedbackModel.TStudentCourse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TStudent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TStudentCourse">
-              <PropertyRef Name="StudentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -319,33 +354,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TFeedback">
-            <EntityTypeMapping TypeName="FeedbackModel.TFeedback">
-              <MappingFragment StoreEntitySet="TFeedback">
-                <ScalarProperty Name="LastModify" ColumnName="LastModify" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
-                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TStudent">
             <EntityTypeMapping TypeName="FeedbackModel.TStudent">
               <MappingFragment StoreEntitySet="TStudent">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TStudentCourse">
-            <EntityTypeMapping TypeName="FeedbackModel.TStudentCourse">
-              <MappingFragment StoreEntitySet="TStudentCourse">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -358,19 +371,87 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vwFeedbacks">
-            <EntityTypeMapping TypeName="FeedbackModel.vwFeedbacks">
-              <MappingFragment StoreEntitySet="vwFeedbacks">
-                <ScalarProperty Name="LastModify" ColumnName="LastModify" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
-                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <EntitySetMapping Name="vwStudentCourse">
+            <EntityTypeMapping TypeName="FeedbackModel.vwStudentCourse">
+              <MappingFragment StoreEntitySet="vwStudentCourse">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="TCourseID" ColumnName="TCourseID" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="TStudentID" ColumnName="TStudentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="TStudentCourse">
+            <EntityTypeMapping TypeName="FeedbackModel.TStudentCourse">
+              <MappingFragment StoreEntitySet="TStudentCourse">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_TStudentCourse_TCourse" TypeName="FeedbackModel.FK_TStudentCourse_TCourse" StoreEntitySet="TStudentCourse">
+            <EndProperty Name="TStudentCourse">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="TCourse">
+              <ScalarProperty Name="ID" ColumnName="TCourseID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_TStudentCourse_TStudent" TypeName="FeedbackModel.FK_TStudentCourse_TStudent" StoreEntitySet="TStudentCourse">
+            <EndProperty Name="TStudentCourse">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="TStudent">
+              <ScalarProperty Name="ID" ColumnName="TStudentID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="TFeedback">
+            <EntityTypeMapping TypeName="FeedbackModel.TFeedback">
+              <MappingFragment StoreEntitySet="TFeedback">
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="LastModify" ColumnName="LastModify" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_TFeedback_TCourse" TypeName="FeedbackModel.FK_TFeedback_TCourse" StoreEntitySet="TFeedback">
+            <EndProperty Name="TFeedback">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="TCourse">
+              <ScalarProperty Name="ID" ColumnName="TCourseID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_TFeedback_TStudent" TypeName="FeedbackModel.FK_TFeedback_TStudent" StoreEntitySet="TFeedback">
+            <EndProperty Name="TFeedback">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="TStudent">
+              <ScalarProperty Name="ID" ColumnName="TStudentID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="vwFeedbacks">
+            <EntityTypeMapping TypeName="FeedbackModel.vwFeedbacks">
+              <MappingFragment StoreEntitySet="vwFeedbacks">
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="TStudentID" ColumnName="TStudentID" />
+                <ScalarProperty Name="TCourseID" ColumnName="TCourseID" />
+                <ScalarProperty Name="LastModify" ColumnName="LastModify" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="CourseTitle" ColumnName="CourseTitle" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

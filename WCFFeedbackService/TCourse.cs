@@ -16,15 +16,15 @@ namespace WCFFeedbackService
     {
         public TCourse()
         {
-            this.TFeedback = new HashSet<TFeedback>();
             this.TStudentCourse = new HashSet<TStudentCourse>();
+            this.TFeedback = new HashSet<TFeedback>();
         }
     
         public int ID { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
     
-        public virtual ICollection<TFeedback> TFeedback { get; set; }
         public virtual ICollection<TStudentCourse> TStudentCourse { get; set; }
+        public virtual ICollection<TFeedback> TFeedback { get; set; }
     }
 }

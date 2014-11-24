@@ -26,10 +26,11 @@ namespace WCFFeedbackService
         }
     
         public DbSet<TCourse> TCourse { get; set; }
-        public DbSet<TFeedback> TFeedback { get; set; }
         public DbSet<TStudent> TStudent { get; set; }
-        public DbSet<TStudentCourse> TStudentCourse { get; set; }
         public DbSet<vwCourses> vwCourses { get; set; }
+        public DbSet<vwStudentCourse> vwStudentCourse { get; set; }
+        public DbSet<TStudentCourse> TStudentCourse { get; set; }
+        public DbSet<TFeedback> TFeedback { get; set; }
         public DbSet<vwFeedbacks> vwFeedbacks { get; set; }
     }
 }

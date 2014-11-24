@@ -15,11 +15,15 @@ namespace ConsoleTestHost
             ServiceHost host = new ServiceHost(typeof(FeedbackService));
 
             host.Open();
-
-            Console.WriteLine("The FeedbackService is up and running.\nPress any key to exit");
-            Console.ReadKey(true);
-
-            host.Close();
+            try
+            {
+                Console.WriteLine("The FeedbackService is up and running.\nPress any key to exit");
+                Console.ReadKey(true);
+            }
+            finally
+            {
+                host.Close();
+            }
         }
     }
 }

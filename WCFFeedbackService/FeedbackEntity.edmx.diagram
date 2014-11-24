@@ -6,15 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="6bb199e72d3d41c98c6ebe39e2d398a6" Name="Diagram1">
         <EntityTypeShape EntityType="FeedbackModel.TCourse" Width="1.5" PointX="1" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FeedbackModel.TFeedback" Width="1.5" PointX="1" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="FeedbackModel.TStudent" Width="1.5" PointX="5" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FeedbackModel.TStudentCourse" Width="1.5" PointX="5.125" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FeedbackModel.vwCourses" Width="1.5" PointX="8.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FeedbackModel.vwFeedbacks" Width="1.5" PointX="8.5" PointY="3.5" IsExpanded="true" />
-        <AssociationConnector Association="FeedbackModel.FK_TFeedback_TCourse" ManuallyRouted="false" />
-        <AssociationConnector Association="FeedbackModel.FK_TStudentCourse_TCourse" ManuallyRouted="false" />
-        <AssociationConnector Association="FeedbackModel.FK_TFeedback_TStudent" ManuallyRouted="false" />
-        <AssociationConnector Association="FeedbackModel.FK_TStudentCourse_TStudent" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FeedbackModel.vwStudentCourse" Width="1.5" PointX="10.625" PointY="0.5" />
+        <EntityTypeShape EntityType="FeedbackModel.TStudentCourse" Width="1.5" PointX="5.125" PointY="0.5" />
+        <AssociationConnector Association="FeedbackModel.FK_TStudentCourse_TCourse" />
+        <AssociationConnector Association="FeedbackModel.FK_TStudentCourse_TStudent" />
+        <EntityTypeShape EntityType="FeedbackModel.TFeedback" Width="1.5" PointX="1" PointY="3.75" />
+        <AssociationConnector Association="FeedbackModel.FK_TFeedback_TCourse" />
+        <AssociationConnector Association="FeedbackModel.FK_TFeedback_TStudent" />
+        <EntityTypeShape EntityType="FeedbackModel.vwFeedbacks" Width="1.5" PointX="8.375" PointY="3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

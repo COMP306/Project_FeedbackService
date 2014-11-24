@@ -164,10 +164,16 @@ namespace IISTestClient.WCFServiceReference {
         private string ContentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CourseIDField;
+        private string Course_CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Course_TitleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAnonymousField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime LastModifyField;
@@ -176,7 +182,13 @@ namespace IISTestClient.WCFServiceReference {
         private System.DateTime PostDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StudentIDField;
+        private string StudentIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TCourseIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TStudentIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -202,14 +214,27 @@ namespace IISTestClient.WCFServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CourseID {
+        public string Course_Code {
             get {
-                return this.CourseIDField;
+                return this.Course_CodeField;
             }
             set {
-                if ((this.CourseIDField.Equals(value) != true)) {
-                    this.CourseIDField = value;
-                    this.RaisePropertyChanged("CourseID");
+                if ((object.ReferenceEquals(this.Course_CodeField, value) != true)) {
+                    this.Course_CodeField = value;
+                    this.RaisePropertyChanged("Course_Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Course_Title {
+            get {
+                return this.Course_TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Course_TitleField, value) != true)) {
+                    this.Course_TitleField = value;
+                    this.RaisePropertyChanged("Course_Title");
                 }
             }
         }
@@ -223,6 +248,19 @@ namespace IISTestClient.WCFServiceReference {
                 if ((this.IDField.Equals(value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAnonymous {
+            get {
+                return this.IsAnonymousField;
+            }
+            set {
+                if ((this.IsAnonymousField.Equals(value) != true)) {
+                    this.IsAnonymousField = value;
+                    this.RaisePropertyChanged("IsAnonymous");
                 }
             }
         }
@@ -254,14 +292,40 @@ namespace IISTestClient.WCFServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StudentID {
+        public string StudentID {
             get {
                 return this.StudentIDField;
             }
             set {
-                if ((this.StudentIDField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.StudentIDField, value) != true)) {
                     this.StudentIDField = value;
                     this.RaisePropertyChanged("StudentID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TCourseID {
+            get {
+                return this.TCourseIDField;
+            }
+            set {
+                if ((this.TCourseIDField.Equals(value) != true)) {
+                    this.TCourseIDField = value;
+                    this.RaisePropertyChanged("TCourseID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TStudentID {
+            get {
+                return this.TStudentIDField;
+            }
+            set {
+                if ((this.TStudentIDField.Equals(value) != true)) {
+                    this.TStudentIDField = value;
+                    this.RaisePropertyChanged("TStudentID");
                 }
             }
         }
@@ -303,10 +367,10 @@ namespace IISTestClient.WCFServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
-        int PostFeedbackByCourseID(IISTestClient.WCFServiceReference.FeedbackObject feedback);
+        int PostFeedbackByCourseID(int tcourse_id, string content, bool isAnonymous);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/PostFeedbackByCourseID", ReplyAction="http://tempuri.org/IFeedbackService/PostFeedbackByCourseIDResponse")]
-        System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(IISTestClient.WCFServiceReference.FeedbackObject feedback);
+        System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(int tcourse_id, string content, bool isAnonymous);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackID", ReplyAction="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(IISTestClient.WCFServiceReference.FaultFeedbackInfo), Action="http://tempuri.org/IFeedbackService/UpdateByFeedBackIDFaultFeedbackInfoFault", Name="FaultFeedbackInfo", Namespace="http://schemas.datacontract.org/2004/07/WCFFeedbackService.FeedbackObjects")]
@@ -373,12 +437,12 @@ namespace IISTestClient.WCFServiceReference {
             return base.Channel.GetFeedbackByCourseIDAsync(courseID);
         }
         
-        public int PostFeedbackByCourseID(IISTestClient.WCFServiceReference.FeedbackObject feedback) {
-            return base.Channel.PostFeedbackByCourseID(feedback);
+        public int PostFeedbackByCourseID(int tcourse_id, string content, bool isAnonymous) {
+            return base.Channel.PostFeedbackByCourseID(tcourse_id, content, isAnonymous);
         }
         
-        public System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(IISTestClient.WCFServiceReference.FeedbackObject feedback) {
-            return base.Channel.PostFeedbackByCourseIDAsync(feedback);
+        public System.Threading.Tasks.Task<int> PostFeedbackByCourseIDAsync(int tcourse_id, string content, bool isAnonymous) {
+            return base.Channel.PostFeedbackByCourseIDAsync(tcourse_id, content, isAnonymous);
         }
         
         public int UpdateByFeedBackID(int id, string content) {

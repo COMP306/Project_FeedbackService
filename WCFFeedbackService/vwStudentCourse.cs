@@ -12,12 +12,14 @@ namespace WCFFeedbackService
     using System;
     using System.Collections.Generic;
     
-    public partial class TStudentCourse
+    public partial class vwStudentCourse
     {
         public int ID { get; set; }
+        public int TStudentID { get; set; }
+        public string StudentID { get; set; }
+        public int TCourseID { get; set; }
+        public string Code { get; set; }
+        public string Title { get; set; }
         public System.DateTime EndDate { get; set; }
-    
-        public virtual TCourse TCourse { get; set; }
-        public virtual TStudent TStudent { get; set; }
     }
 }
