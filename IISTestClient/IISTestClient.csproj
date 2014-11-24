@@ -54,14 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Service References\WCFServiceReference\FeedbackService.wsdl" />
-    <None Include="Service References\WCFServiceReference\FeedbackService.xsd">
+    <None Include="Service References\WCFServiceReference\FeedbackService1.wsdl" />
+    <None Include="Service References\WCFServiceReference\FeedbackService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WCFServiceReference\FeedbackService1.xsd">
+    <None Include="Service References\WCFServiceReference\FeedbackService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WCFServiceReference\FeedbackService2.xsd">
+    <None Include="Service References\WCFServiceReference\FeedbackService32.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\WCFServiceReference\IISTestClient.WCFServiceReference.CourseObject.datasource">
@@ -78,9 +78,6 @@
     <WCFMetadataStorage Include="Service References\WCFServiceReference\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\WCFServiceReference\FeedbackService.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\WCFServiceReference\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +88,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WCFServiceReference\FeedbackService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

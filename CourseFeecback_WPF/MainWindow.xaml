@@ -34,49 +34,46 @@
 
                 <StackPanel x:Name="ButtonGrid" HorizontalAlignment="Center" Margin="10,0,23.8,0.4" Width="295">
                     <TextBlock Text="Course name:" Margin="10,20,144.2,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0,0.678" Width="141"  />
-                    <TextBox AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,98.2,-30" />
-                    <Button Content="Search" Height="30" Margin="206,0,10.2,0" RenderTransformOrigin="0.812,0.593" />
+                    <TextBox AcceptsReturn="True" x:Name="tbCourseName" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,98.2,-30" />
+                    <Button Content="Search" Height="30" Margin="206,0,10.2,0" Click="Button_Click_Search" RenderTransformOrigin="0.812,0.593" />
                 </StackPanel>
 
                 <StackPanel x:Name="ListBoxGrid_Scroll" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0.2,0" Width="329">
                     <TextBlock Text="Course list :" Margin="10,10,203.8,20" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="115"  />
-                    <ListBox Height="538" Margin="10,0,9.8,0">
-                        <ListBoxItem Content="Course1" />
-                        <ListBoxItem Content="Course2" />
-                        <ListBoxItem Content="Course3" />
-                        <ListBoxItem Content="Course4" />
-                        <ListBoxItem Content="Course5" />
-                        <ListBoxItem Content="Course6" />
-                        <ListBoxItem Content="Course7" />
+                    <ListBox Height="538" Margin="10,0,9.8,0" x:Name="courseListBox" PreviewMouseDown="courseListBox_PreviewMouseDown_1">
+                      
                     </ListBox>
                 </StackPanel>
 
                 <StackPanel x:Name="ListComment_Scroll" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="9.8,50,0.4,10" Width="329" Height="680">
                     <TextBlock Text="Comments list :" Margin="10,10,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
-                    <Button Content="New" Height="30" Margin="268,-30,9.8,20" RenderTransformOrigin="0.812,0.593" />
+                    <Button Content="New" Height="30" Click="Button_Click_NewComment" Margin="268,-30,9.8,20" RenderTransformOrigin="0.812,0.593" />
 
-                    <ListBox Height="552" Margin="10,0,9.8,0">
-                        <ListBoxItem Content="Comment1" />
-                        <ListBoxItem Content="Comment2" />
-                        <ListBoxItem Content="Comment3" />
-                        <ListBoxItem Content="Comment4" />
-                        <ListBoxItem Content="Comment5" />
-                        <ListBoxItem Content="Comment6" />
-                        <ListBoxItem Content="Comment7" />
+                    <ListBox Height="552" x:Name="lbFeedback" Margin="10,0,9.8,0" HorizontalContentAlignment="Stretch" PreviewMouseDown="feedbackListBox_PreviewMouseDown">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Height="100" Orientation="Vertical">
+                                    <TextBlock Text="{Binding CourseID}"  />
+                                    <TextBlock Text="{Binding Content}" />
+                                    <TextBlock Text="{Binding PostDate}" />
+                                    <TextBlock Text="{Binding LastModify}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
 
                 <StackPanel x:Name="ListComment_Scrolldd" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4.6,10,-4.8,31" Width="329" Height="647">
-                    <TextBlock Text="Username :" Margin="10,10,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
-                    <TextBox AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,9.8,-30" />
-                    <TextBlock Text="Comment :" Margin="10,30,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
-                    <TextBox AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,9.8,-30" Height="138" />
-                    <Button Content="Save" Height="30" Margin="10,50,262.8,20" RenderTransformOrigin="0.812,0.593" />
+                    <TextBlock x:Name="cTextUsername" Text="Username :" Margin="10,10,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
+                    <TextBox x:Name="cTboxUsername" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,9.8,-30" />
+                    <TextBlock x:Name="cTextComment" Text="Comment :" Margin="10,30,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
+                    <TextBox x:Name="cTboxComment" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,9.8,-30" Height="138" />
+                    <Button x:Name="cBtnSave" Click="cBtnSave_Click_Save" Content="Save" Height="30" Margin="10,50,262.8,20" RenderTransformOrigin="0.812,0.593" />
 
                 </StackPanel>
-                <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="335,0,0,0" VerticalAlignment="Top" Width="1"/>
+            <!--    <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="335,0,0,0" VerticalAlignment="Top" Width="1"/>
                 <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="655,0,0,0" VerticalAlignment="Top" Width="1"/>
-
+                -->
             </Grid>
         </ScrollViewer>
     </Grid>
