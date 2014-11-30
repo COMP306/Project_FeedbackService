@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Security.Cryptography.X509Certificates;
 using CourseFeecback_WPF.FeedbackService;
+using System.ServiceModel;
 
 namespace CourseFeecback_WPF
 {
@@ -40,6 +41,10 @@ namespace CourseFeecback_WPF
 
         private void initListBox()
         {
+            if (courseListBox.Items.Count != 0)
+            {
+                courseListBox.Items.Clear();
+            }
             foreach (CourseObject co in getAllCourseList())
             {
                 string courseName = co.Title;
@@ -51,8 +56,8 @@ namespace CourseFeecback_WPF
 
         #region private lists
         private List<CourseObject> currentCourseList = new List<CourseObject>();
-        private int indexOfCourseList = 0;
-        private int indexOfCommentList = 0;
+        private int indexOfCourseList = -1;
+        private int indexOfCommentList = -1;
         private saveStatus ss = saveStatus.newComment;
         private List<FeedbackObject> currentFeedbackList = new List<FeedbackObject>();
         #endregion private lists
@@ -73,49 +78,92 @@ namespace CourseFeecback_WPF
         private List<CourseObject> getAllCourseList()
         {
             FeedbackServiceClient aClient = setCredential();
-            var retCourse = aClient.GetAllCourse();
             List<CourseObject> courseList = new List<CourseObject>();
-            foreach (var c in retCourse)
+            try
             {
-                courseList.Add(c);
+                var retCourse = aClient.GetAllCourse();
+
+                foreach (var c in retCourse)
+                {
+                    courseList.Add(c);
+                }
+                currentCourseList = courseList;
             }
-            currentCourseList = courseList;
+            catch (FaultException fe)
+            {
+                MessageBox.Show(fe.Reason.ToString());
+            }
             return courseList;
         }
 
         private List<CourseObject> GetCourseByCodeOrTitle(string titleOrCode)
         {
             FeedbackServiceClient aClient = setCredential();
-            var retCourse = aClient.GetCourseByCodeOrTitle(titleOrCode);
             List<CourseObject> courseList = new List<CourseObject>();
-            foreach (var c in retCourse)
-            {
-                courseList.Add(c);
+            try
+            { //FaultFeedbackInfo
+                var retCourse = aClient.GetCourseByCodeOrTitle(titleOrCode);
+
+                foreach (var c in retCourse)
+                {
+                    courseList.Add(c);
+                }
+                currentCourseList = courseList;
             }
-            currentCourseList = courseList;
+            catch (FaultException fe)
+            {
+                MessageBox.Show(fe.Reason.ToString());
+            }
             return courseList;
         }
         private int UpdateByFeedBackID(int id, string content)
         {
             FeedbackServiceClient aClient = setCredential();
-            return aClient.UpdateByFeedBackID(id, content);
+            int ret = -1;
+            try
+            {
+                ret = aClient.UpdateByFeedBackID(id, content);
+            }
+            catch (FaultException fe)
+            {
+                MessageBox.Show(fe.Reason.ToString());
+            }
+            return ret;
         }
 
-        private int PostFeedbackByCourseID(FeedbackObject feedback)
+        private int PostFeedbackByCourseID(int courseId, string feedbackContent)
         {
             FeedbackServiceClient aClient = setCredential();
-            return aClient.PostFeedbackByCourseID(feedback);
+            int ret = -1;
+            try
+            {
+                ret = aClient.PostFeedbackByCourseID(courseId, feedbackContent, ckAnoy.IsChecked.Value); ;
+            }
+            catch (FaultException fe)
+            {
+                MessageBox.Show(fe.Reason.ToString());
+            }
+            return ret;
         }
         private List<FeedbackObject> GetFeedbackByCourseID(int courseID)
         {
             FeedbackServiceClient aClient = setCredential();
             List<FeedbackObject> feedbaclList = new List<FeedbackObject>();
-            var retFeedbacks = aClient.GetFeedbackByCourseID(courseID);
-            foreach (var c in retFeedbacks)
+
+            try
             {
-                feedbaclList.Add(c);
+                var retFeedbacks = aClient.GetFeedbackByCourseID(courseID);
+                foreach (var c in retFeedbacks)
+                {
+                    feedbaclList.Add(c);
+                }
+                currentFeedbackList = feedbaclList;
             }
-            currentFeedbackList = feedbaclList;
+            catch (FaultException fe)
+            {
+                MessageBox.Show(fe.Reason.ToString());
+            }
+
             return feedbaclList;
         }
         private string getCurrentUser()
@@ -136,8 +184,7 @@ namespace CourseFeecback_WPF
         {
             if (tbCourseName.Text == string.Empty)
             {
-                //show alert
-                //   MessageBox.Show("The Selected Index is" + listBox1.SelectedIndex);
+                MessageBox.Show("Please input course code of course name");
             }
             else
             {
@@ -151,6 +198,13 @@ namespace CourseFeecback_WPF
                 }
             }
         }
+        private void Button_Click_Clear(object sender, RoutedEventArgs e)
+        {
+            tbCourseName.Text = String.Empty;
+            this.initListBox();
+            indexOfCourseList = -1;
+        }
+
 
         /// <summary>
         /// Add a new Comment;
@@ -159,70 +213,88 @@ namespace CourseFeecback_WPF
         /// <param name="e"></param>
         private void Button_Click_NewComment(object sender, RoutedEventArgs e)
         {
-            ListComment_Scrolldd.Visibility = Visibility.Visible;
-
+            ss = saveStatus.newComment;
+            if (indexOfCourseList == -1)
+            {
+                MessageBox.Show("Please select a course");
+            }
+            else
+            {
+                if (ListComment_Scrolldd.Visibility == Visibility.Visible)
+                {
+                    cTboxComment.Text = string.Empty;
+                    cTboxUsername.Text = string.Empty;
+                }
+                ListComment_Scrolldd.Visibility = Visibility.Visible;
+            }
         }
 
 
         private void cBtnSave_Click_Save(object sender, RoutedEventArgs e)
         {
+            FeedbackObject fo = new FeedbackObject();
+            if (indexOfCourseList == -1)
+            {
+                MessageBox.Show("Please select a course ");
+                return;
+            }
+            CourseObject co = currentCourseList[indexOfCourseList];
+            fo.TCourseID = co.ID;
+            fo.Content = cTboxComment.Text.ToString();
             if (ss == saveStatus.newComment) // post a  new comment
             {
-                if (currentFeedbackList != null || currentFeedbackList.Count >= 0) //wrong...
-                {
-                    FeedbackObject fo = new FeedbackObject();
-                    FeedbackObject cf = currentFeedbackList[indexOfCommentList];
-                    fo.CourseID = cf.CourseID;
-                    fo.Content = cTboxComment.Text.ToString();
-                    PostFeedbackByCourseID(fo);
-                }
+                PostFeedbackByCourseID(fo.TCourseID, fo.Content);
             }
             else // update an old comment
             {
+                UpdateByFeedBackID(fo.TCourseID, fo.Content);
             }
         }
 
         #endregion button clicks
 
-        #region list items click
-        private void courseListBox_PreviewMouseDown_1(object sender, MouseButtonEventArgs e)
+
+
+        private void ckAnoy_Click_1(object sender, RoutedEventArgs e)
         {
-            var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
-            if (item != null)
+            if (ckAnoy.IsChecked.Value)
             {
-                if (courseListBox.SelectedIndex != -1)
+                cTboxUsername.Text = string.Empty;
+            }
+            ckAnoy.IsChecked = ckAnoy.IsChecked.Value;
+        }
+
+        private void courseListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            ss = saveStatus.updateComemnt;
+            if (courseListBox.SelectedIndex != -1)
+            {
+                indexOfCourseList = courseListBox.SelectedIndex;
+                CourseObject co = currentCourseList[courseListBox.SelectedIndex];
+                List<FeedbackObject> courseFeedback = GetFeedbackByCourseID(co.ID);
+                foreach (var c in courseFeedback)
                 {
-                    CourseObject co = currentCourseList[courseListBox.SelectedIndex];
-                    List<FeedbackObject> courseFeedback = GetFeedbackByCourseID(co.ID);
-                    foreach (var c in courseFeedback)
-                    {
-                        lbFeedback.ItemsSource = courseFeedback;
-                    }
+                    lbFeedback.ItemsSource = courseFeedback;
                 }
             }
         }
 
-
-        #endregion list items click
-
-        #region feedback list item Click
-
-        private void feedbackListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void lbFeedback_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
-            if (item != null)
+            ss = saveStatus.updateComemnt;
+            if (lbFeedback.SelectedIndex != -1)
             {
-                if (lbFeedback.SelectedIndex != -1)
+                indexOfCommentList = lbFeedback.SelectedIndex;
+                FeedbackObject fo = currentFeedbackList[lbFeedback.SelectedIndex];
+                cTboxUsername.Text = fo.StudentID.ToString();
+                cTboxComment.Text = fo.Content.ToString();
+                ckAnoy.IsChecked = fo.IsAnonymous;
+                if (fo.IsAnonymous)
                 {
-                    FeedbackObject fo = currentFeedbackList[lbFeedback.SelectedIndex];
-                    cTboxUsername.Text = fo.StudentID.ToString();
-                    cTboxComment.Text = fo.Content.ToString();
-                    ListComment_Scrolldd.Visibility = Visibility.Visible;
+                    cTboxUsername.Text = string.Empty;
                 }
+                ListComment_Scrolldd.Visibility = Visibility.Visible;
             }
         }
-
-        #endregion feedback list item Click
-
     }
 }

@@ -20,8 +20,8 @@ namespace ConsoleTestClient
                     System.Net.ServicePointManager.ServerCertificateValidationCallback +=
                       (se, cert, chain, sslerror) => { return true; };
                     client.ClientCredentials.Windows.ClientCredential.Domain = Environment.MachineName; // "JohnnyWalker";
-                    client.ClientCredentials.Windows.ClientCredential.UserName = "student";
-                    client.ClientCredentials.Windows.ClientCredential.Password = "password";
+                    client.ClientCredentials.Windows.ClientCredential.UserName = "AlexLiu";
+                    client.ClientCredentials.Windows.ClientCredential.Password = "Password";
 
                     // test to get current user
                     string user="";

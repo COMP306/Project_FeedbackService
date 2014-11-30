@@ -19,14 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://localhost/WCFFeedbackService/FeedbackService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://localhost/WCFFeedbackService/Service.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="FeedbackService1.wsdl" MetadataType="Wsdl" ID="548432eb-5a70-40eb-8ae3-13f7d28ad34b" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?wsdl" />
-    <MetadataFile FileName="FeedbackService.xsd" MetadataType="Schema" ID="c5154e78-b8c6-46c5-97e7-d6ba51515b07" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?xsd=xsd1" />
-    <MetadataFile FileName="FeedbackService1.xsd" MetadataType="Schema" ID="d3e3bd99-3a0b-435d-b722-067dd6310744" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?xsd=xsd2" />
-    <MetadataFile FileName="FeedbackService2.xsd" MetadataType="Schema" ID="6a9dad73-189c-4292-b49b-b722ac796a12" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?xsd=xsd0" />
-    <MetadataFile FileName="FeedbackService.disco" MetadataType="Disco" ID="cf10fc2c-4f1a-4091-8e09-c28abcac4421" SourceId="1" SourceUrl="https://alexliu-pc/WCFFeedbackService/FeedbackService.svc?disco" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="60364a4f-b96f-4e42-8b37-bfc17b7c3c24" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="868836b7-8fed-4637-a260-3c16a9528a6a" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="daf841b7-c256-41df-88de-a6d837053137" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
+    <MetadataFile FileName="WCFFeedbackService.FeedbackObjects1.xsd" MetadataType="Schema" ID="79b5e5d8-5033-488f-9201-128b3142588c" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

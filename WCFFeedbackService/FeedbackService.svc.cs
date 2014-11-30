@@ -55,7 +55,7 @@ namespace WCFFeedbackService
                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
                 ffi.Reason = ex.Message;
                 ffi.Source = "Feedback Service";
-                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error.");
+                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.ToString());
             }
             return coList;
         }
@@ -103,7 +103,7 @@ namespace WCFFeedbackService
                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
                 ffi.Reason = ex.Message;
                 ffi.Source = "Feedback Service";
-                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error.");
+                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.ToString());
             }
             return coList;
         }
