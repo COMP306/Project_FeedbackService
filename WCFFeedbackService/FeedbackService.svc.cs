@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -103,7 +104,7 @@ namespace WCFFeedbackService
                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
                 ffi.Reason = ex.Message;
                 ffi.Source = "Feedback Service";
-                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.ToString());
+                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.Message);
             }
             return coList;
         }
@@ -161,7 +162,7 @@ namespace WCFFeedbackService
                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
                 ffi.Reason = ex.Message;
                 ffi.Source = "Feedback Service";
-                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error.");
+                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.Message);
             }
             return fbList;
         }
@@ -234,7 +235,7 @@ namespace WCFFeedbackService
                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
                 ffi.Reason = ex.Message;
                 ffi.Source = "Feedback Service";
-                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error.");
+                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.Message);
             }
             return result;
         }
@@ -259,7 +260,7 @@ namespace WCFFeedbackService
                 throw new FaultException<FaultFeedbackInfo>(ffi, "User does not have right to update feedback.");
             }
 
-            int result = -1;
+            int result = 0;
             try
             {
                 using (FeedbackEntities fbEF = new FeedbackEntities())
@@ -268,15 +269,51 @@ namespace WCFFeedbackService
                     if (fb == null)
                     {
                         FaultFeedbackInfo ffi = new FaultFeedbackInfo();
-                        ffi.Reason = String.Format("Feedback ID:{0} not found.",id);
+                        ffi.Reason = String.Format("Feedback ID:{0} not found.", id);
                         ffi.Source = "Feedback Service";
-                        throw new FaultException<FaultFeedbackInfo>(ffi, "Data connection error.");
+                        throw new FaultException<FaultFeedbackInfo>(ffi, "post not found.");
                     }
-
-                    fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id && f.LastModify >= DateTime.Now.AddMonths(-3));
-                    fb.FeedbackContent = content;
-                    fb.LastModify = DateTime.Now;
-                    result = fbEF.SaveChanges();
+                    else
+                    {
+                        fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id && f.IsAnonymous == "N");
+                        if (fb == null)
+                        {
+                            FaultFeedbackInfo ffi = new FaultFeedbackInfo();
+                            ffi.Reason = String.Format("Feedback ID:{0} is post by anonymous.", id);
+                            ffi.Source = "Feedback Service";
+                            throw new FaultException<FaultFeedbackInfo>(ffi, "post by anonymous.");
+                        }
+                        else
+                        {
+                            fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id && EntityFunctions.DiffMonths(f.LastModify, DateTime.Now)<3 );
+                            if (fb == null)
+                            {
+                                FaultFeedbackInfo ffi = new FaultFeedbackInfo();
+                                ffi.Reason = String.Format("Feedback ID:{0} post over 3 months.", id);
+                                ffi.Source = "Feedback Service";
+                                throw new FaultException<FaultFeedbackInfo>(ffi, "post over 3 months.");
+                            }
+                            else
+                            {
+                                fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id && f.StudentID == user.Identity.Name);
+                                if (fb == null)
+                                {
+                                    FaultFeedbackInfo ffi = new FaultFeedbackInfo();
+                                    ffi.Reason = String.Format("Feedback ID:{0} not post by {1}.", id, user.Identity.Name);
+                                    ffi.Source = "Feedback Service";
+                                    throw new FaultException<FaultFeedbackInfo>(ffi, "not post by you.");
+                                }
+                                else
+                                {
+                                    TFeedback rec_fb = fbEF.TFeedback.FirstOrDefault(f => f.ID == id);
+                                    rec_fb.FeedbackContent = content;
+                                    rec_fb.LastModify = DateTime.Now;
+                                    result = fbEF.SaveChanges();
+                                    result = 1;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             catch (System.Data.EntityException ex)
@@ -291,7 +328,7 @@ namespace WCFFeedbackService
                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
                 ffi.Reason = ex.Message;
                 ffi.Source = "Feedback Service";
-                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error.");
+                throw new FaultException<FaultFeedbackInfo>(ffi, "Unexpected error." + ex.Message);
             }
             return result;
         }

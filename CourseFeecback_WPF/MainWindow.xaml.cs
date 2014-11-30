@@ -69,9 +69,9 @@ namespace CourseFeecback_WPF
             FeedbackServiceClient aClient = new FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
             System.Net.ServicePointManager.ServerCertificateValidationCallback +=
                     (se, cert, chain, sslerror) => { return true; };
-            aClient.ClientCredentials.Windows.ClientCredential.Domain = "AlexLiu-PC";
-            aClient.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
-            aClient.ClientCredentials.Windows.ClientCredential.Password = "Password";
+            aClient.ClientCredentials.Windows.ClientCredential.Domain = Environment.UserDomainName; // "AlexLiu-PC";
+            aClient.ClientCredentials.Windows.ClientCredential.UserName = "student";
+            aClient.ClientCredentials.Windows.ClientCredential.Password = "password";
             return aClient;
         }
 
@@ -239,15 +239,16 @@ namespace CourseFeecback_WPF
                 return;
             }
             CourseObject co = currentCourseList[indexOfCourseList];
-            fo.TCourseID = co.ID;
-            fo.Content = cTboxComment.Text.ToString();
+            fo = currentFeedbackList[indexOfCommentList]; 
+            String comment = cTboxComment.Text.ToString();
+            
             if (ss == saveStatus.newComment) // post a  new comment
             {
-                PostFeedbackByCourseID(fo.TCourseID, fo.Content);
+                PostFeedbackByCourseID(co.ID, comment);
             }
             else // update an old comment
             {
-                UpdateByFeedBackID(fo.TCourseID, fo.Content);
+                UpdateByFeedBackID(fo.ID, comment);
             }
         }
 

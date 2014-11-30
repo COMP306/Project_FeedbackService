@@ -268,9 +268,9 @@
   </wsdl:binding>
   <wsdl:service name="FeedbackService">
     <wsdl:port name="WS2007HttpBinding_IFeedbackService" binding="tns:WS2007HttpBinding_IFeedbackService">
-      <soap12:address location="https://localhost/WCFFeedbackService/Service.svc" />
+      <soap12:address location="https://localhost/WCFFeedbackService/FeedbackService.svc" />
       <wsa10:EndpointReference>
-        <wsa10:Address>https://localhost/WCFFeedbackService/Service.svc</wsa10:Address>
+        <wsa10:Address>https://localhost/WCFFeedbackService/FeedbackService.svc</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

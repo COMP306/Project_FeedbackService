@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bc685edc-fb35-46ee-a7db-761a6174d863" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="71717446-14db-48cb-9d7a-c6b98d51e6a0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,13 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://localhost/WCFFeedbackService/Service.svc/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="https://localhost/WCFFeedbackService/FeedbackService.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="60364a4f-b96f-4e42-8b37-bfc17b7c3c24" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
-    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="868836b7-8fed-4637-a260-3c16a9528a6a" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
-    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="daf841b7-c256-41df-88de-a6d837053137" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
-    <MetadataFile FileName="WCFFeedbackService.FeedbackObjects1.xsd" MetadataType="Schema" ID="79b5e5d8-5033-488f-9201-128b3142588c" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/Service.svc/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="78d82361-a21d-4972-ab9b-936cd8361b77" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/FeedbackService.svc/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9e996efd-c84f-4179-ae5a-145966f131b1" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/FeedbackService.svc/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="be62cfb0-c95c-446b-a1c1-6489cfcf5a97" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/FeedbackService.svc/mex" />
+    <MetadataFile FileName="WCFFeedbackService.FeedbackObjects.xsd" MetadataType="Schema" ID="4d171a55-bd8a-46df-8265-02fd0cbe3ed7" SourceId="1" SourceUrl="https://localhost/WCFFeedbackService/FeedbackService.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -140,14 +140,14 @@
     <None Include="Service References\FeedbackService\CourseFeecback_WPF.FeedbackService.FeedbackObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\FeedbackService\service1.wsdl" />
-    <None Include="Service References\FeedbackService\service2.xsd">
+    <None Include="Service References\FeedbackService\service.wsdl" />
+    <None Include="Service References\FeedbackService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FeedbackService\service21.xsd">
+    <None Include="Service References\FeedbackService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FeedbackService\WCFFeedbackService.FeedbackObjects1.xsd">
+    <None Include="Service References\FeedbackService\WCFFeedbackService.FeedbackObjects.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
