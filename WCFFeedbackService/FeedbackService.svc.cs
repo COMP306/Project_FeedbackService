@@ -285,7 +285,7 @@ namespace WCFFeedbackService
                         }
                         else
                         {
-                            fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id && EntityFunctions.DiffMonths(f.LastModify, DateTime.Now)<3 );
+                            fb = fbEF.vwFeedbacks.FirstOrDefault(f => f.ID == id && EntityFunctions.AddMonths(f.LastModify, 3) >= EntityFunctions.TruncateTime(DateTime.Now));
                             if (fb == null)
                             {
                                 FaultFeedbackInfo ffi = new FaultFeedbackInfo();
