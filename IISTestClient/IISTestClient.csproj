@@ -69,21 +69,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Service References\WCFServiceReference\FeedbackService1.wsdl" />
-    <None Include="Service References\WCFServiceReference\FeedbackService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\WCFServiceReference\FeedbackService31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\WCFServiceReference\FeedbackService32.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\WCFServiceReference\IISTestClient.WCFServiceReference.CourseObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\WCFServiceReference\IISTestClient.WCFServiceReference.FeedbackObject.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WCFServiceReference\service.wsdl" />
+    <None Include="Service References\WCFServiceReference\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WCFServiceReference\WCFFeedbackService.FeedbackObjects.xsd">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +103,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WCFServiceReference\FeedbackService1.disco" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

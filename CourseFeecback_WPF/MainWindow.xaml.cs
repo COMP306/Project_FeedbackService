@@ -70,8 +70,8 @@ namespace CourseFeecback_WPF
             System.Net.ServicePointManager.ServerCertificateValidationCallback +=
                     (se, cert, chain, sslerror) => { return true; };
             aClient.ClientCredentials.Windows.ClientCredential.Domain = Environment.UserDomainName; // "AlexLiu-PC";
-            aClient.ClientCredentials.Windows.ClientCredential.UserName = "student";
-            aClient.ClientCredentials.Windows.ClientCredential.Password = "password";
+            aClient.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
+            aClient.ClientCredentials.Windows.ClientCredential.Password = "Password";
             return aClient;
         }
 
@@ -89,9 +89,13 @@ namespace CourseFeecback_WPF
                 }
                 currentCourseList = courseList;
             }
-            catch (FaultException fe)
+            catch (FaultException<FaultFeedbackInfo> e)
             {
-                MessageBox.Show(fe.Reason.ToString());
+                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Service Error !!!! ");
             }
             return courseList;
         }
@@ -110,9 +114,13 @@ namespace CourseFeecback_WPF
                 }
                 currentCourseList = courseList;
             }
-            catch (FaultException fe)
+            catch (FaultException<FaultFeedbackInfo> e)
             {
-                MessageBox.Show(fe.Reason.ToString());
+                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Service Error !!!! ");
             }
             return courseList;
         }
@@ -124,9 +132,13 @@ namespace CourseFeecback_WPF
             {
                 ret = aClient.UpdateByFeedBackID(id, content);
             }
-            catch (FaultException fe)
+            catch (FaultException<FaultFeedbackInfo> e)
             {
-                MessageBox.Show(fe.Reason.ToString());
+                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Service Error !!!! ");
             }
             return ret;
         }
@@ -139,9 +151,13 @@ namespace CourseFeecback_WPF
             {
                 ret = aClient.PostFeedbackByCourseID(courseId, feedbackContent, ckAnoy.IsChecked.Value); ;
             }
-            catch (FaultException fe)
+            catch (FaultException<FaultFeedbackInfo> e)
             {
-                MessageBox.Show(fe.Reason.ToString());
+                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Service Error !!!! ");
             }
             return ret;
         }
@@ -159,9 +175,13 @@ namespace CourseFeecback_WPF
                 }
                 currentFeedbackList = feedbaclList;
             }
-            catch (FaultException fe)
+            catch (FaultException<FaultFeedbackInfo> e)
             {
-                MessageBox.Show(fe.Reason.ToString());
+                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Service Error !!!! ");
             }
 
             return feedbaclList;
@@ -189,12 +209,20 @@ namespace CourseFeecback_WPF
             else
             {
                 courseListBox.Items.Clear();
-                foreach (CourseObject co in GetCourseByCodeOrTitle(tbCourseName.Text))
+                List<CourseObject> searchResult = GetCourseByCodeOrTitle(tbCourseName.Text);
+                if (searchResult.Count > 0)
                 {
-                    string courseName = co.Title;
-                    string coueseCode = co.Code;
+                    foreach (CourseObject co in searchResult)
+                    {
+                        string courseName = co.Title;
+                        string coueseCode = co.Code;
 
-                    courseListBox.Items.Add(co.Code + " " + co.Title);
+                        courseListBox.Items.Add(co.Code + " " + co.Title);
+                    }
+                }
+                else
+                {
+                    courseListBox.ItemsSource = null;
                 }
             }
         }
@@ -203,8 +231,11 @@ namespace CourseFeecback_WPF
             tbCourseName.Text = String.Empty;
             this.initListBox();
             indexOfCourseList = -1;
-        }
 
+            lbFeedback.ItemsSource = null;
+            ListComment_Scrolldd.Visibility = Visibility.Hidden ;
+
+        }
 
         /// <summary>
         /// Add a new Comment;
@@ -249,6 +280,12 @@ namespace CourseFeecback_WPF
             else // update an old comment
             {
                 UpdateByFeedBackID(fo.ID, comment);
+            }
+
+            List<FeedbackObject> courseFeedback = GetFeedbackByCourseID(co.ID);
+            foreach (var c in courseFeedback)
+            {
+                lbFeedback.ItemsSource = courseFeedback;
             }
         }
 
