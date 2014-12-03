@@ -70,8 +70,8 @@ namespace CourseFeecback_WPF
             System.Net.ServicePointManager.ServerCertificateValidationCallback +=
                     (se, cert, chain, sslerror) => { return true; };
             aClient.ClientCredentials.Windows.ClientCredential.Domain = Environment.UserDomainName; // "AlexLiu-PC";
-            aClient.ClientCredentials.Windows.ClientCredential.UserName = "alexliu";
-            aClient.ClientCredentials.Windows.ClientCredential.Password = "Password";
+            aClient.ClientCredentials.Windows.ClientCredential.UserName = DataEnv.username;
+            aClient.ClientCredentials.Windows.ClientCredential.Password = DataEnv.password;
             return aClient;
         }
 
