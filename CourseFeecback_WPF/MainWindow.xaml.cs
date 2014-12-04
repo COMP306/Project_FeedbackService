@@ -24,20 +24,22 @@ namespace CourseFeecback_WPF
     public partial class MainWindow : Window
     {
 
+        #region private lists
+        private List<CourseObject> currentCourseList = new List<CourseObject>();
+        private List<FeedbackObject> currentFeedbackList = new List<FeedbackObject>();
+        private int indexOfCourseList = -1;
+        private int indexOfCommentList = -1;
+        private ServiceHelper.saveStatus ss = ServiceHelper.saveStatus.newComment;
+        #endregion
+
         public MainWindow()
         {
             PermissiveCertificatePolicy.Enact("CN=HTTPS-Server");
             InitializeComponent();
             initListBox();
             ListComment_Scrolldd.Visibility = Visibility.Collapsed;
-
         }
 
-        enum saveStatus
-        {
-            newComment,
-            updateComemnt
-        }
 
         private void initListBox()
         {
@@ -45,7 +47,8 @@ namespace CourseFeecback_WPF
             {
                 courseListBox.Items.Clear();
             }
-            foreach (CourseObject co in getAllCourseList())
+            currentCourseList = ServiceHelper.getAllCourseList();
+            foreach (CourseObject co in currentCourseList)
             {
                 string courseName = co.Title;
                 string coueseCode = co.Code;
@@ -54,144 +57,6 @@ namespace CourseFeecback_WPF
             }
         }
 
-        #region private lists
-        private List<CourseObject> currentCourseList = new List<CourseObject>();
-        private int indexOfCourseList = -1;
-        private int indexOfCommentList = -1;
-        private saveStatus ss = saveStatus.newComment;
-        private List<FeedbackObject> currentFeedbackList = new List<FeedbackObject>();
-        #endregion private lists
-
-        #region call services
-
-        private FeedbackServiceClient setCredential()
-        {
-            FeedbackServiceClient aClient = new FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
-            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                    (se, cert, chain, sslerror) => { return true; };
-            aClient.ClientCredentials.Windows.ClientCredential.Domain = Environment.UserDomainName; // "AlexLiu-PC";
-            aClient.ClientCredentials.Windows.ClientCredential.UserName = DataEnv.username;
-            aClient.ClientCredentials.Windows.ClientCredential.Password = DataEnv.password;
-            return aClient;
-        }
-
-        private List<CourseObject> getAllCourseList()
-        {
-            FeedbackServiceClient aClient = setCredential();
-            List<CourseObject> courseList = new List<CourseObject>();
-            try
-            {
-                var retCourse = aClient.GetAllCourse();
-
-                foreach (var c in retCourse)
-                {
-                    courseList.Add(c);
-                }
-                currentCourseList = courseList;
-            }
-            catch (FaultException<FaultFeedbackInfo> e)
-            {
-                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Service Error !!!! ");
-            }
-            return courseList;
-        }
-
-        private List<CourseObject> GetCourseByCodeOrTitle(string titleOrCode)
-        {
-            FeedbackServiceClient aClient = setCredential();
-            List<CourseObject> courseList = new List<CourseObject>();
-            try
-            { //FaultFeedbackInfo
-                var retCourse = aClient.GetCourseByCodeOrTitle(titleOrCode);
-
-                foreach (var c in retCourse)
-                {
-                    courseList.Add(c);
-                }
-                currentCourseList = courseList;
-            }
-            catch (FaultException<FaultFeedbackInfo> e)
-            {
-                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Service Error !!!! ");
-            }
-            return courseList;
-        }
-        private int UpdateByFeedBackID(int id, string content)
-        {
-            FeedbackServiceClient aClient = setCredential();
-            int ret = -1;
-            try
-            {
-                ret = aClient.UpdateByFeedBackID(id, content);
-            }
-            catch (FaultException<FaultFeedbackInfo> e)
-            {
-                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Service Error !!!! ");
-            }
-            return ret;
-        }
-
-        private int PostFeedbackByCourseID(int courseId, string feedbackContent)
-        {
-            FeedbackServiceClient aClient = setCredential();
-            int ret = -1;
-            try
-            {
-                ret = aClient.PostFeedbackByCourseID(courseId, feedbackContent, ckAnoy.IsChecked.Value); ;
-            }
-            catch (FaultException<FaultFeedbackInfo> e)
-            {
-                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Service Error !!!! ");
-            }
-            return ret;
-        }
-        private List<FeedbackObject> GetFeedbackByCourseID(int courseID)
-        {
-            FeedbackServiceClient aClient = setCredential();
-            List<FeedbackObject> feedbaclList = new List<FeedbackObject>();
-
-            try
-            {
-                var retFeedbacks = aClient.GetFeedbackByCourseID(courseID);
-                foreach (var c in retFeedbacks)
-                {
-                    feedbaclList.Add(c);
-                }
-                currentFeedbackList = feedbaclList;
-            }
-            catch (FaultException<FaultFeedbackInfo> e)
-            {
-                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", e.Detail.Source, e.Detail.Reason));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Service Error !!!! ");
-            }
-
-            return feedbaclList;
-        }
-        private string getCurrentUser()
-        {
-            return string.Empty;
-        }
-
-        #endregion call services
 
         #region button clicks
 
@@ -209,10 +74,11 @@ namespace CourseFeecback_WPF
             else
             {
                 courseListBox.Items.Clear();
-                List<CourseObject> searchResult = GetCourseByCodeOrTitle(tbCourseName.Text);
-                if (searchResult.Count > 0)
+                //List<CourseObject> searchResult = ServiceHelper.GetCourseByCodeOrTitle(tbCourseName.Text);
+                currentCourseList = ServiceHelper.GetCourseByCodeOrTitle(tbCourseName.Text);
+                if (currentCourseList.Count > 0)
                 {
-                    foreach (CourseObject co in searchResult)
+                    foreach (CourseObject co in currentCourseList)
                     {
                         string courseName = co.Title;
                         string coueseCode = co.Code;
@@ -244,7 +110,7 @@ namespace CourseFeecback_WPF
         /// <param name="e"></param>
         private void Button_Click_NewComment(object sender, RoutedEventArgs e)
         {
-            ss = saveStatus.newComment;
+            ss = ServiceHelper.saveStatus.newComment;
             if (indexOfCourseList == -1)
             {
                 MessageBox.Show("Please select a course");
@@ -272,21 +138,21 @@ namespace CourseFeecback_WPF
             CourseObject co = currentCourseList[indexOfCourseList];
             fo = currentFeedbackList[indexOfCommentList]; 
             String comment = cTboxComment.Text.ToString();
-            
-            if (ss == saveStatus.newComment) // post a  new comment
+
+            if (ss == ServiceHelper.saveStatus.newComment) // post a  new comment
             {
-                PostFeedbackByCourseID(co.ID, comment);
+                ServiceHelper.PostFeedbackByCourseID(co.ID, comment, ckAnoy.IsChecked.Value);
             }
             else // update an old comment
             {
-                UpdateByFeedBackID(fo.ID, comment);
+                ServiceHelper.UpdateByFeedBackID(fo.ID, comment);
             }
 
-            List<FeedbackObject> courseFeedback = GetFeedbackByCourseID(co.ID);
-            foreach (var c in courseFeedback)
-            {
-                lbFeedback.ItemsSource = courseFeedback;
-            }
+            currentFeedbackList = ServiceHelper.GetFeedbackByCourseID(co.ID);
+            //foreach (var c in currentFeedbackList)
+            //{
+                lbFeedback.ItemsSource = currentFeedbackList;
+            //}
         }
 
         #endregion button clicks
@@ -304,22 +170,22 @@ namespace CourseFeecback_WPF
 
         private void courseListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            ss = saveStatus.updateComemnt;
+            ss = ServiceHelper.saveStatus.updateComemnt;
             if (courseListBox.SelectedIndex != -1)
             {
                 indexOfCourseList = courseListBox.SelectedIndex;
                 CourseObject co = currentCourseList[courseListBox.SelectedIndex];
-                List<FeedbackObject> courseFeedback = GetFeedbackByCourseID(co.ID);
-                foreach (var c in courseFeedback)
-                {
-                    lbFeedback.ItemsSource = courseFeedback;
-                }
+                currentFeedbackList = ServiceHelper.GetFeedbackByCourseID(co.ID);
+                //foreach (var c in currentFeedbackList)
+                //{
+                    lbFeedback.ItemsSource = currentFeedbackList;
+                //}
             }
         }
 
         private void lbFeedback_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            ss = saveStatus.updateComemnt;
+            ss = ServiceHelper.saveStatus.updateComemnt;
             if (lbFeedback.SelectedIndex != -1)
             {
                 indexOfCommentList = lbFeedback.SelectedIndex;

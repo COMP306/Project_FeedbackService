@@ -23,17 +23,53 @@ namespace CourseFeecback_WPF
     /// </summary>
     public partial class Login : Window
     {
+        FeedbackServiceClient aClient;
+
         public Login()
         {
             InitializeComponent();
         }
 
-        private void cBtnSave_Click_Save(object sender, RoutedEventArgs e)
+        #region "On Load"
+        void OnLoad(object sender, RoutedEventArgs e)
         {
+            this.cTboxDomainname.Text = Environment.UserDomainName;
 
+            try
+            {
+                aClient = ServiceHelper.setCredential(true);
+                LoginCurrentUserBtn.Content = "Use Current Login : " + aClient.GetCurrentUser();
+                LoginCurrentUserBtn.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                LoginCurrentUserBtn.Content = "";
+                LoginCurrentUserBtn.IsEnabled = false;
+            }
+            finally
+            {
+                aClient.Close();
+            }
+        }
+        #endregion
+
+        #region "Curent User Login"
+        private void cBtnCurrentUser_Click(object sender, RoutedEventArgs e)
+        {
+            DataEnv.useCurrentLogin = true;
+            MainWindow objmain = new MainWindow();
+            objmain.Show();     //  Redirect to Mian window  
+            this.Close();   //  close Login window  
+        }
+        #endregion 
+
+        #region "Login"
+        private void cBtnLogin_Click(object sender, RoutedEventArgs e)
+        {
             //after login
-
-            FeedbackServiceClient aClient = setCredential();
+            DataEnv.useCurrentLogin = false;
+            aClient = ServiceHelper.setCredential();
             List<CourseObject> courseList = null;
             try
             {
@@ -46,39 +82,35 @@ namespace CourseFeecback_WPF
             }
             catch (FaultException<FaultFeedbackInfo> ef)
             {
-                MessageBox.Show(string.Format("\nFaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", ef.Detail.Source, ef.Detail.Reason));
+                MessageBox.Show(string.Format("FaultException<FaultFeedbackInfo>:\n   Source : {0}\n   Reason : {1}\n", ef.Detail.Source, ef.Detail.Reason));
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Service Error !!!! ");
+                MessageBox.Show("Service Error !!!! " + ex.Message);
+            }
+            finally
+            {
+                aClient.Close();
             }
 
             if (courseList != null)
             {
-
+                DataEnv.domain = cTboxDomainname.Text;
                 DataEnv.username = cTboxUsername.Text;
                 DataEnv.password = cTboxPassword.Password;
                // Login obj = new Login();
                 MainWindow objmain = new MainWindow();
                 objmain.Show(); //after login Redirect to second window  
-                this.Hide();//after login hide the  Login window  
+                this.Close();//after login hide and close the  Login window  
             }
             else
             {
                 MessageBox.Show("Invalid username or password");
             }
         }
+        #endregion
 
-        private FeedbackServiceClient setCredential()
-        {
-            FeedbackServiceClient aClient = new FeedbackServiceClient("WS2007HttpBinding_IFeedbackService");
-            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                    (se, cert, chain, sslerror) => { return true; };
-            aClient.ClientCredentials.Windows.ClientCredential.Domain = Environment.UserDomainName; // "AlexLiu-PC";
-            aClient.ClientCredentials.Windows.ClientCredential.UserName = cTboxUsername.Text;
-            aClient.ClientCredentials.Windows.ClientCredential.Password = cTboxPassword.Password;
-            return aClient;
-        }
+
 
 
     }

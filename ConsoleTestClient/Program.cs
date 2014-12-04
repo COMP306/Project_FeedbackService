@@ -19,9 +19,9 @@ namespace ConsoleTestClient
 
                     System.Net.ServicePointManager.ServerCertificateValidationCallback +=
                       (se, cert, chain, sslerror) => { return true; };
-                    client.ClientCredentials.Windows.ClientCredential.Domain = Environment.MachineName; // "JohnnyWalker";
-                    client.ClientCredentials.Windows.ClientCredential.UserName = "student";
-                    client.ClientCredentials.Windows.ClientCredential.Password = "password";
+                    //client.ClientCredentials.Windows.ClientCredential.Domain = Environment.MachineName; 
+                    //client.ClientCredentials.Windows.ClientCredential.UserName = "student";
+                    //client.ClientCredentials.Windows.ClientCredential.Password = "password";
 
                     // test to get current user
                     string user="";
@@ -45,6 +45,8 @@ namespace ConsoleTestClient
                     {
                         Console.WriteLine("ID:{0},   Code:{1},   Title:{2}.", c.ID, c.Code, c.Title);
                     }
+
+                    return;
 
                     // test to call post feedback
                     string feedback = "some text";

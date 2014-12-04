@@ -18,5 +18,15 @@ namespace CourseFeecback_WPF
             get;
             set;
         }
+        public static string domain
+        {
+            get;
+            set;
+        }
+        public static bool useCurrentLogin
+        {
+            get;
+            set;
+        }
     }
 }

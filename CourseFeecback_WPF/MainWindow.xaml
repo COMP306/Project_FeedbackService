@@ -42,7 +42,7 @@
                 <StackPanel x:Name="ListBoxGrid_Scroll" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0.2,0" Width="329">
                     <TextBlock Text="Course list :" Margin="10,10,0,20" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="115"  />
                     <ListBox Height="538" Margin="10,0,9.8,0" x:Name="courseListBox" SelectionChanged="courseListBox_SelectionChanged_1"  >
-                      
+
                     </ListBox>
                 </StackPanel>
 
@@ -53,13 +53,16 @@
                     <ListBox Height="552" x:Name="lbFeedback" Margin="10,0,9.8,0" HorizontalContentAlignment="Left" SelectionChanged="lbFeedback_SelectionChanged_1">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Height="100" Orientation="Vertical">
-                                    <TextBlock Text="{Binding CourseID}">
-                                    <LineBreak />
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding Content}" />
-                                    <TextBlock Text="{Binding PostDate}" />
-                                    <TextBlock Text="{Binding LastModify}" />
+                                <StackPanel MinHeight="60" MaxHeight="120" Height="Auto" Orientation="Vertical">
+                                    <StackPanel Width="Auto" Orientation="Horizontal">
+                                        <TextBlock Text="Post By : " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding StudentID}"/>
+                                    </StackPanel>
+                                    <StackPanel Width="Auto" Orientation="Horizontal">
+                                        <TextBlock Text="Last Modify : " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding LastModify}" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Content}" Background="AliceBlue" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -71,11 +74,11 @@
                     <TextBox x:Name="cTboxUsername" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,10,80,0" />
                     <CheckBox x:Name="ckAnoy" Click="ckAnoy_Click_1" Content="Anonymous" Height="30" Margin="5,10,9.8,10" RenderTransformOrigin="0.812,0.593" />
                     <TextBlock x:Name="cTextComment" Text="Comment :" Margin="10,-10,153.8,0" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" RenderTransformOrigin="0.192,0.466" Width="165"  />
-                    <TextBox x:Name="cTboxComment" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0,9.8,0" Height="138" />
+                    <TextBox x:Name="cTboxComment" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="10,0" Height="332" />
                     <Button x:Name="cBtnSave" Click="cBtnSave_Click_Save" Content="Save" Height="30" Margin="10,10,260,0" RenderTransformOrigin="0.812,0.593" />
 
                 </StackPanel>
-            <!--    <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="335,0,0,0" VerticalAlignment="Top" Width="1"/>
+                <!--    <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="335,0,0,0" VerticalAlignment="Top" Width="1"/>
                 <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="730" Margin="655,0,0,0" VerticalAlignment="Top" Width="1"/>
                 -->
             </Grid>
