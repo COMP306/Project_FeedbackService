@@ -58,10 +58,10 @@ namespace CourseFeecback_WPF
 
                 DataEnv.username = cTboxUsername.Text;
                 DataEnv.password = cTboxPassword.Password;
-                Login obj = new Login();
+               // Login obj = new Login();
                 MainWindow objmain = new MainWindow();
                 objmain.Show(); //after login Redirect to second window  
-                obj.Hide();//after login hide the  Login window  
+                this.Hide();//after login hide the  Login window  
             }
             else
             {
