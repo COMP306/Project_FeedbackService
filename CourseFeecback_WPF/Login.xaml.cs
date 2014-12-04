@@ -57,7 +57,7 @@ namespace CourseFeecback_WPF
             {
 
                 DataEnv.username = cTboxUsername.Text;
-                DataEnv.password = cTboxPassword.Text;
+                DataEnv.password = cTboxPassword.Password;
                 Login obj = new Login();
                 MainWindow objmain = new MainWindow();
                 objmain.Show(); //after login Redirect to second window  
@@ -76,7 +76,7 @@ namespace CourseFeecback_WPF
                     (se, cert, chain, sslerror) => { return true; };
             aClient.ClientCredentials.Windows.ClientCredential.Domain = Environment.UserDomainName; // "AlexLiu-PC";
             aClient.ClientCredentials.Windows.ClientCredential.UserName = cTboxUsername.Text;
-            aClient.ClientCredentials.Windows.ClientCredential.Password = cTboxPassword.Text;
+            aClient.ClientCredentials.Windows.ClientCredential.Password = cTboxPassword.Password;
             return aClient;
         }
 
