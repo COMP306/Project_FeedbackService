@@ -10,8 +10,6 @@ namespace ConsoleTestHost
 {
     class Program
     {
-        static ProductServiceClient client;
-
         static void Main(string[] args)
         {
             ServiceHost host = new ServiceHost(typeof(FeedbackService));

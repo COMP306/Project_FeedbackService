@@ -129,14 +129,12 @@ namespace CourseFeecback_WPF
 
         private void cBtnSave_Click_Save(object sender, RoutedEventArgs e)
         {
-            FeedbackObject fo = new FeedbackObject();
             if (indexOfCourseList == -1)
             {
                 MessageBox.Show("Please select a course ");
                 return;
             }
             CourseObject co = currentCourseList[indexOfCourseList];
-            fo = currentFeedbackList[indexOfCommentList]; 
             String comment = cTboxComment.Text.ToString();
 
             if (ss == ServiceHelper.saveStatus.newComment) // post a  new comment
@@ -145,6 +143,8 @@ namespace CourseFeecback_WPF
             }
             else // update an old comment
             {
+                FeedbackObject fo = new FeedbackObject();
+                fo = currentFeedbackList[indexOfCommentList];
                 ServiceHelper.UpdateByFeedBackID(fo.ID, comment);
             }
 
